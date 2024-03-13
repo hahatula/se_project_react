@@ -1,0 +1,7 @@
+@import url("../WeatherCard/WeatherCard.css");
+
+.main {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}

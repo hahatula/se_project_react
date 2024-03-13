@@ -1,0 +1,31 @@
+.weather {
+    background-color: #00a3ff;
+    padding: 20px 16px;
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .weather__value {
+    font-size: 36px;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  .weather__illustration {
+    position: absolute;
+  }
+
+  .weather__illustration_type_cloud {
+    top: 10px;
+    right: -18px;
+  }
+
+  .weather__illustration_type_sun {
+    width: 60px;
+    height: 60px;
+    top: -10px;
+    right: -14px;
+    background-color: #FFE600;
+    border-radius: 30px;
+  }
