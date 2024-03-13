@@ -1,20 +1,32 @@
 .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 20px;
+  font-weight: 700;
 }
 
 .header__info {
-    display: flex;
-    gap: 24px;
+  display: flex;
+  gap: 24px;
 }
 
 .header__user-tools {
-    display: flex;
-    gap: 20px;
+  display: flex;
+  gap: 20px;
 }
 
 .header__user {
-    display: flex;
-    gap: 12px;
+  display: flex;
+  gap: 12px;
+}
+
+.header__add-btn {
+  font-family: "Cabinet Grotesk";
+  line-height: 1.4;
+  font-size: 20px;
+  font-weight: 700;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
 }
