@@ -7,7 +7,7 @@ function Main({ weatherData }) {
   return (
     <main className="main">
       <WeatherCard weatherData={weatherData} />
-      <section className="main__clothing clothing">
+      <section className="main__clothing">
         <p className="main__text">
           Today is {weatherData.temperature.F} / You may want to wear:
         </p>
@@ -17,9 +17,7 @@ function Main({ weatherData }) {
               return item.weather === weatherData.type;
             })
             .map((item) => (
-              <li className="main__item" key={item._id}>
-                <ItemCard name={item.name} link={item.link} />
-              </li>
+              <ItemCard id={item._id} name={item.name} link={item.link} />
             ))}
         </ul>
       </section>
