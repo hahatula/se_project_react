@@ -25,12 +25,6 @@
   gap: 20px;
 }
 
-.header__user {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
 .header__add-btn {
   font-family: "Cabinet Grotesk";
   line-height: 1.4;
@@ -39,4 +33,18 @@
   background-color: transparent;
   border: none;
   cursor: pointer;
+}
+
+.header__user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header__user-avatar {
+  width: 40px;
+  height: 40px;
+  box-sizing: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: 50px;
 }

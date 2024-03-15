@@ -1,11 +1,12 @@
 import "./ItemCard.css";
 
-function ItemCard() {
-    return (
-        <div className="item-card">
-            <p className="item-name">T-short</p>
-        </div>
-    )
+function ItemCard({name, link}) {
+  return (
+    <>
+      <h2 className="item-name">{name}</h2>
+      <img src={link} alt="" />
+    </>
+  );
 }
 
 export default ItemCard;
