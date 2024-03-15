@@ -4,9 +4,30 @@
   display: flex;
   flex-direction: column;
   gap: 40px;
+  position: relative;
 }
 
 .main__text {
   font-size: 20px;
   font-weight: 700;
+}
+
+.main__items {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    max-width: 100%;
+    padding: 0;
+    gap: 20px;
+}
+
+.main__item {
+    position: relative;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 20px;
+    overflow: hidden;
+    border: solid 1px rgba(0, 0, 0, .3);
 }

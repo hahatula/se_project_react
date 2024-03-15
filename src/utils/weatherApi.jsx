@@ -14,11 +14,20 @@ export const filterWeatherData = (data) => {
   usefulData.city = data.name;
   usefulData.temperature = {
     F: `${data.main.temp}° F`,
-    C: `${(data.main.temp - 32)*(5/9)}° C`,
+    C: `${(data.main.temp - 32) * (5 / 9)}° C`,
   };
   //Formula	(32°F − 32) × 5/9 = °C
 
-  usefulData.type = "ok";
-
+  usefulData.type = weatherType(data.main.temp);
   return usefulData;
+};
+
+const weatherType = (temperature) => {
+  if (temperature > 85) {
+    return "hot";
+  } else if (temperature >= 66 && temperature <= 85) {
+    return "warm";
+  } else if (temperature < 66) {
+    return "cold";
+  }
 };
