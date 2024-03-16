@@ -2,7 +2,6 @@ import "./ModalWithForm.css";
 import "./Form.css";
 
 function ModalWithForm({ children, title, buttonText, onClose, name }) {
-
   return (
     <div className={`modal modal_type_${name}`}>
       <div className="modal__form-container">

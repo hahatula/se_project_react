@@ -36,6 +36,10 @@
   cursor: pointer;
 }
 
+.header__add-btn:focus-visible {
+  outline: none;
+}
+
 .header__user {
   display: flex;
   align-items: center;

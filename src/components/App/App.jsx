@@ -35,13 +35,39 @@ function App() {
 
   const handleActiveModalClose = () => {
     setModalIsActive(false);
+    removeListeners();
   };
   const handleAddButton = () => {
     setModalIsActive("add-garment");
+    setListeners();
   };
   const handleItemClick = (item) => {
     setModalIsActive("preview");
     setSelectedItem(item);
+    setListeners();
+  };
+
+  // Managing global listeners_________
+  const escListener = (event) => {
+    if (event.key === "Escape") {
+      handleActiveModalClose();
+    }
+  };
+
+  const modalBackgroundListener = (event) => {
+    if (event.target.classList.contains("modal")) {
+      handleActiveModalClose();
+    }
+  };
+
+  const setListeners = () => {
+    document.addEventListener("keydown", escListener);
+    document.addEventListener("click", modalBackgroundListener);
+  };
+
+  const removeListeners = () => {
+    document.removeEventListener("keydown", escListener);
+    document.removeEventListener("click", modalBackgroundListener);
   };
 
   return (
