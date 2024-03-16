@@ -1,9 +1,9 @@
 import "./ModalWithForm.css";
 import "./Form.css";
 
-function ModalWithForm({ children, title, buttonText, handleClose }) {
+function ModalWithForm({ children, title, buttonText, handleClose, name }) {
   return (
-    <div className="modal">
+    <div className={`modal modal_type_${name}`}>
       <div className="modal__form-container">
         <button
           onClick={handleClose}

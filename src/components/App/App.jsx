@@ -12,6 +12,7 @@ import {
 } from "../../utils/constants";
 
 function App() {
+  // Managing weather information_________
   const [weatherData, setWeatherData] = useState({
     type: " ",
     temperature: { F: 999, C: 999 },
@@ -27,20 +28,29 @@ function App() {
       .catch(console.error());
   }, []);
 
-  const [modalIsActive, setModalIsActive] = useState(true);
+  // Managing modal windows_____________
+  const [modalIsActive, setModalIsActive] = useState(false);
   const handleActiveModalClose = () => {
     setModalIsActive(false);
-  }
+  };
+  const handleAddButton = () => {
+    setModalIsActive("Add garment");
+  };
 
   return (
     <div className="app">
       <div className="app__container">
-        <Header weatherData={weatherData} />
+        <Header weatherData={weatherData} handleAddButton={handleAddButton} />
         <Main weatherData={weatherData} />
         <Footer />
       </div>
-      {modalIsActive && (
-        <ModalWithForm title="New garment" buttonText="Add garment" handleClose={handleActiveModalClose}>
+      {modalIsActive === "Add garment" && (
+        <ModalWithForm
+          name="Add garment"
+          title="New garment"
+          buttonText="Add garment"
+          handleClose={handleActiveModalClose}
+        >
           <label htmlFor="name" className="form__label">
             Name{" "}
             <input
