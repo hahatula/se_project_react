@@ -49,6 +49,7 @@
   padding: 8px 0 4px;
   border: none;
   border-bottom: 1px solid;
+  font-weight: 700;
 }
 
 .form__input:focus-visible {

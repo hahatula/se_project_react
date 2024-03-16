@@ -4,6 +4,7 @@ import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
+import ItemModal from "../ItemModal/ItemModal";
 import { getWeather, filterWeatherData } from "../../utils/weatherApi";
 import {
   defaultClothingItems,
@@ -30,26 +31,32 @@ function App() {
 
   // Managing modal windows_____________
   const [modalIsActive, setModalIsActive] = useState(false);
+  const [selectedItem, setSelectedItem] = useState({});
+
   const handleActiveModalClose = () => {
     setModalIsActive(false);
   };
   const handleAddButton = () => {
-    setModalIsActive("Add garment");
+    setModalIsActive("add-garment");
+  };
+  const handleItemClick = (item) => {
+    setModalIsActive("preview");
+    setSelectedItem(item);
   };
 
   return (
     <div className="app">
       <div className="app__container">
         <Header weatherData={weatherData} handleAddButton={handleAddButton} />
-        <Main weatherData={weatherData} />
+        <Main weatherData={weatherData} handleItemClick={handleItemClick} />
         <Footer />
       </div>
-      {modalIsActive === "Add garment" && (
+      {modalIsActive === "add-garment" && (
         <ModalWithForm
-          name="Add garment"
+          name="add-garment"
           title="New garment"
           buttonText="Add garment"
-          handleClose={handleActiveModalClose}
+          onClose={handleActiveModalClose}
         >
           <label htmlFor="name" className="form__label">
             Name{" "}
@@ -109,6 +116,13 @@ function App() {
             </div>
           </fieldset>
         </ModalWithForm>
+      )}
+      {modalIsActive === "preview" && (
+        <ItemModal
+          name="preview"
+          card={selectedItem}
+          onClose={handleActiveModalClose}
+        />
       )}
     </div>
   );

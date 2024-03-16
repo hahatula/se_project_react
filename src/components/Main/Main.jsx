@@ -3,7 +3,7 @@ import WeatherCard from "../WeatherCard/WeatherCard";
 import ItemCard from "../ItemCard/ItemCard";
 import { defaultClothingItems } from "../../utils/constants";
 
-function Main({ weatherData }) {
+function Main({ weatherData, handleItemClick }) {
   return (
     <main className="main">
       <WeatherCard weatherData={weatherData} />
@@ -17,7 +17,11 @@ function Main({ weatherData }) {
               return item.weather === weatherData.type;
             })
             .map((item) => (
-              <ItemCard key={item._id} name={item.name} link={item.link} />
+              <ItemCard
+                key={item._id}
+                card={item}
+                onItemClick={handleItemClick}
+              />
             ))}
         </ul>
       </section>
