@@ -27,7 +27,10 @@ function App() {
       .catch(console.error());
   }, []);
 
-  let modalIsOpened = true;
+  const [modalIsActive, setModalIsActive] = useState(true);
+  const handleActiveModalClose = () => {
+    setModalIsActive(false);
+  }
 
   return (
     <div className="app">
@@ -36,8 +39,8 @@ function App() {
         <Main weatherData={weatherData} />
         <Footer />
       </div>
-      {modalIsOpened && (
-        <ModalWithForm title="New garment" buttonText="Add garment">
+      {modalIsActive && (
+        <ModalWithForm title="New garment" buttonText="Add garment" handleClose={handleActiveModalClose}>
           <label htmlFor="name" className="form__label">
             Name{" "}
             <input
