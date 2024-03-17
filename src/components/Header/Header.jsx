@@ -1,4 +1,6 @@
 import "./Header.css";
+import "./burger.css";
+import { useState } from "react";
 import logo from "../../assets/logo.svg";
 import avatar from "../../assets/avatar-placeholder.svg";
 
@@ -8,6 +10,17 @@ function Header({ weatherData, handleAddButton }) {
     day: "numeric",
   });
 
+  const [isMobileMenuOpened, setIsMobileMenuOpened] = useState(false);
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpened(!isMobileMenuOpened);
+  }
+
+  const mobileMenuHandler = () => {
+    console.log("clicked");
+    toggleMobileMenu();
+  }
+
   return (
     <header className="header">
       <div className="header__info">
@@ -16,7 +29,11 @@ function Header({ weatherData, handleAddButton }) {
           {currentDate}, {weatherData.city}
         </p>
       </div>
-      <div className="header__user-tools">
+      <div className={`header__user-tools ${isMobileMenuOpened ? "header__user-tools_opened" : "header__user-tools_closed"}`}>
+        <div onClick={mobileMenuHandler} className={`header__mobile-menu-icon ${isMobileMenuOpened ? "burger burger-opened" : "burger"}`}>
+          <div className="burger__element burger__element_type_top" />
+          <div className="burger__element burger__element_type_bottom" />
+        </div>
         <button
           onClick={handleAddButton}
           type="button"

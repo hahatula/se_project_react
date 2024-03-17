@@ -1,0 +1,46 @@
+.burger {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    position: relative;
+  }
+
+.burger-opened {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.burger__element {
+    background-image: url(../../assets/element-line.svg);
+    width: 28px;
+    height: 2px;
+    transition: rotate linear 1;
+}
+
+.burger__element_type_top {
+    margin-bottom: 8px;
+}
+
+.burger-opened .burger__element {
+    position: absolute;
+    top: 20px;
+}
+
+.burger-opened .burger__element_type_top {
+    rotate: 45deg;
+    margin: 0;
+}
+
+.burger-opened .burger__element_type_bottom {
+    rotate: -45deg;
+}
+
+@media screen and (min-width: 641px) {
+    .burger {
+        display: none;
+    }
+}

@@ -24,3 +24,13 @@
     "main"
     "footer";
 }
+
+@media screen and (max-width: 640px) {
+  .app {
+    padding: 0 16px;
+  }
+
+  .app__container {
+    padding: 18px 0 20px;
+  }
+}
