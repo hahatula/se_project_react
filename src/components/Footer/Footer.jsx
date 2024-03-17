@@ -2,7 +2,7 @@ import "./Footer.css";
 
 function Footer() {
   const author = "Olga Golubev";
-  const dateCreated = "2024";
+  const dateCreated = new Date().getFullYear();
   return (
     <footer className="footer">
       <p>Developed by {author}</p>
