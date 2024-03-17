@@ -27,7 +27,7 @@ function App() {
         setWeatherData(filteredData);
       })
       .catch(console.error);
-  }, []);
+  }, []); // dependencies array is an empty array to turn on this useEffect only once on mount
 
   // Managing modal windows_____________
   const [modalIsActive, setModalIsActive] = useState(null);
@@ -35,40 +35,41 @@ function App() {
 
   const handleActiveModalClose = () => {
     setModalIsActive(null);
-    removeListeners();
   };
   const handleAddButton = () => {
     setModalIsActive("add-garment");
-    setListeners();
   };
   const handleItemClick = (item) => {
     setModalIsActive("preview");
     setSelectedItem(item);
-    setListeners();
   };
 
   // Managing global listeners_________
-  const escListener = (event) => {
-    if (event.key === "Escape") {
-      handleActiveModalClose();
-    }
-  };
+  useEffect(() => {
+    if (!modalIsActive) return; // stop the effect not to add the listener if there is no active modal
 
-  const modalBackgroundListener = (event) => {
-    if (event.target.classList.contains("modal")) {
-      handleActiveModalClose();
-    }
-  };
+    // define the handle functions inside useEffect (not to lose the reference on rerendering) and attach listeners to the doc
+    const handleEscClose = (e) => {
+      if (e.key === "Escape") {
+        handleActiveModalClose();
+      }
+    };
+    document.addEventListener("keydown", handleEscClose);
 
-  const setListeners = () => {
-    document.addEventListener("keydown", escListener);
-    document.addEventListener("click", modalBackgroundListener);
-  };
+    const handleOverlayClick = (event) => {
+      if (event.target.classList.contains("modal")) {
+        handleActiveModalClose();
+      }
+    };
+    document.addEventListener("click", handleOverlayClick);
 
-  const removeListeners = () => {
-    document.removeEventListener("keydown", escListener);
-    document.removeEventListener("click", modalBackgroundListener);
-  };
+    // clean up functions for removing the listeners
+    // Explanation: React will store this function (which is in "return") and call it right before it removes the component from the UI or before re-running the effect due to changes in its dependencies.
+    return () => {
+      document.removeEventListener("keydown", handleEscClose);
+      document.removeEventListener("click", handleOverlayClick);
+    };
+  }, [modalIsActive]); // fill dependencies array to watch modalIsActive state
 
   return (
     <div className="app">
