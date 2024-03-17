@@ -12,7 +12,7 @@ function ItemModal({ name, card, onClose }) {
         <img
           className="modal__preiew-image"
           src={card.link}
-          alt="Piece of clothing preview"
+          alt={card.name}
         />
         <div className="modal__preview-info">
           <h2 className="modal__item-name">{card.name}</h2>
