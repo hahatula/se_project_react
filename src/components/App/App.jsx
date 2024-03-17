@@ -26,15 +26,15 @@ function App() {
         const filteredData = filterWeatherData(data);
         setWeatherData(filteredData);
       })
-      .catch(console.error());
+      .catch(console.error);
   }, []);
 
   // Managing modal windows_____________
-  const [modalIsActive, setModalIsActive] = useState(false);
+  const [modalIsActive, setModalIsActive] = useState(null);
   const [selectedItem, setSelectedItem] = useState({});
 
   const handleActiveModalClose = () => {
-    setModalIsActive(false);
+    setModalIsActive(null);
     removeListeners();
   };
   const handleAddButton = () => {
