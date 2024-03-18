@@ -81,3 +81,9 @@
 .form__submit:disabled {
   background-color: rgba(0, 0, 0, 0.3);
 }
+
+@media screen and (max-width: 640px) {
+  .form__input {
+    width: 100%;
+  }
+}
