@@ -22,3 +22,16 @@
   padding: 0;
   gap: 20px;
 }
+
+@media screen and (max-width: 640px) {
+  .main__items {
+    grid-template-columns: repeat(auto-fit, minmax(188px, 1fr));
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .main__items {
+    grid-template-columns: repeat(auto-fit, minmax(164px, 1fr));
+    gap: 15px;
+  }
+}
