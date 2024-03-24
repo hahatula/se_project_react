@@ -3,6 +3,7 @@ import "./burger.css";
 import { useState } from "react";
 import logo from "../../assets/logo.svg";
 import avatar from "../../assets/avatar-placeholder.svg";
+import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 
 function Header({ weatherData, handleAddButton }) {
   const currentDate = new Date().toLocaleString("default", {
@@ -34,6 +35,7 @@ function Header({ weatherData, handleAddButton }) {
           <div className="burger__element burger__element_type_top" />
           <div className="burger__element burger__element_type_bottom" />
         </div>
+        <ToggleSwitch />
         <button
           onClick={handleAddButton}
           type="button"
