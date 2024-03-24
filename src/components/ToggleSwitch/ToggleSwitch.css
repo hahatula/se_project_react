@@ -1,0 +1,49 @@
+.toggle {
+  position: relative;
+  box-sizing: border-box;
+  width: 56px;
+  height: 28px;
+  background-color: #fff;
+  border-radius: 20px;
+  border: 2px solid #00000080;
+}
+
+.toggle__checkbox {
+  height: 0;
+  width: 0;
+  visibility: hidden;
+}
+
+.toggle__button {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: 28px;
+  height: 28px;
+  border-radius: 45px;
+  transition: 0.2s;
+  background: #000;
+  box-shadow: 0 0 2px 0 rgba(10, 10, 10, 0.29);
+}
+
+.toggle__values {
+  position: absolute;
+  top: 2px;
+  left: -1px;
+  display: flex;
+  width: 100%;
+  color: #00000080;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.toggle__value {
+  width: 50%;
+  height: 100%;
+  text-align: center;
+}
+
+.toggle__value_checked {
+  color: #fff;
+}
