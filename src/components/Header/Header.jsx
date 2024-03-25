@@ -23,10 +23,11 @@ function Header({ weatherData, handleAddButton }) {
   };
 
   // Managing toggle_________
-  const [checked, setChecked] = useState(false);
-  const handleChange = () => {
-    setChecked(!checked);
-  };
+  // const [checked, setChecked] = useState(false);
+  // const handleChange = () => {
+  //   setChecked(!checked);
+  //   console.log(checked);
+  // };
 
   return (
     <header className="header">
@@ -52,7 +53,7 @@ function Header({ weatherData, handleAddButton }) {
           <div className="burger__element burger__element_type_top" />
           <div className="burger__element burger__element_type_bottom" />
         </div>
-        <ToggleSwitch value={checked} onChange={handleChange} />
+        <ToggleSwitch />
         <button
           onClick={handleAddButton}
           type="button"
