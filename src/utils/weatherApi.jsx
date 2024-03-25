@@ -13,8 +13,8 @@ export const filterWeatherData = (data) => {
   const usefulData = {};
   usefulData.city = data.name;
   usefulData.temperature = {
-    F: `${data.main.temp}° F`,
-    C: `${(data.main.temp - 32) * (5 / 9)}° C`,
+    F: `${Math.round(data.main.temp)}° F`,
+    C: `${Math.round((data.main.temp - 32) * (5 / 9))}° C`,
   };
   //Formula	(32°F − 32) × 5/9 = °C
 
