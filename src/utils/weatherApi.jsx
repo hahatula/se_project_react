@@ -19,6 +19,8 @@ export const filterWeatherData = (data) => {
   //Formula	(32°F − 32) × 5/9 = °C
 
   usefulData.type = weatherType(data.main.temp);
+  usefulData.description = data.weather[0].description;
+  usefulData.timeOfTheDay = timeOfTheDay(data.sys.sunrise, data.sys.sunset);
   return usefulData;
 };
 
@@ -30,4 +32,10 @@ const weatherType = (temperature) => {
   } else if (temperature < 66) {
     return "cold";
   }
+};
+
+const timeOfTheDay = (sunrise, sunset) => {
+  return sunrise < Date.now() / 1000 && Date.now() / 1000 <= sunset
+    ? "day"
+    : "night";
 };

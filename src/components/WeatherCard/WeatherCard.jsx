@@ -2,6 +2,7 @@ import "./WeatherCard.css";
 import { useContext } from "react";
 import cloudImg from "../../assets/cloud-img.svg";
 import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
+import WeatherIllustration from "../WeatherIllustration/WeatherIllustration";
 
 function WeatherCard({ weatherData }) {
   const temperature = useContext(CurrentTemperatureUnitContext);
@@ -10,16 +11,20 @@ function WeatherCard({ weatherData }) {
   console.log(weatherData.temperature[temperatureUnit]); // why ok?
 
   return (
-    <section className="weather">
+    <section
+      className={`weather ${
+        weatherData.timeOfTheDay === "night"
+          ? "weather_night"
+          : weatherData.description === "few clouds" ||
+            weatherData.description === "clear sky"
+          ? "weather_sunny"
+          : ""
+      }`}
+    >
       <p className="weather__value">
         {weatherData.temperature[temperatureUnit]}
       </p>
-      <span className="weather__illustration weather__illustration_type_sun"></span>
-      <img
-        className="weather__illustration weather__illustration_type_cloud"
-        src={cloudImg}
-        alt="Cloud illustartion"
-      />
+      <WeatherIllustration weatherData={weatherData} />
     </section>
   );
 }
