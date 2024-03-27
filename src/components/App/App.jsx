@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
+import Profile from "../Profile/Profile";
 import Footer from "../Footer/Footer";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import ItemModal from "../ItemModal/ItemModal";
@@ -26,7 +28,7 @@ function App() {
     currentTemperatureUnit === "F"
       ? setCurrentTemperatureUnit("C")
       : setCurrentTemperatureUnit("F");
-      console.log(currentTemperatureUnit);
+    console.log(currentTemperatureUnit);
   };
 
   //get weather on load (once)
@@ -88,7 +90,19 @@ function App() {
       >
         <div className="app__container">
           <Header weatherData={weatherData} handleAddButton={handleAddButton} />
-          <Main weatherData={weatherData} handleItemClick={handleItemClick} />
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Main
+                  weatherData={weatherData}
+                  handleItemClick={handleItemClick}
+                />
+              }
+            />
+            <Route path="/profile" element={<Profile handleItemClick={handleItemClick} />} />
+          </Routes>
+
           <Footer />
         </div>
         {modalIsActive === "add-garment" && (

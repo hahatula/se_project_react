@@ -5,8 +5,6 @@ import snowImg from "../../assets/snow.svg";
 import thunderImg from "../../assets/thunder.svg";
 
 function WeatherIllustration({ weatherData }) {
-  console.log(weatherData.timeOfTheDay);
-  console.log(weatherData.description);
   const showLuminary = ["few clouds", "clear sky"];
   const showCloud = ["few clouds", "scattered clouds", "broken clouds"];
   const showPrecipitation = ["shower rain", "rain", "thunderstorm", "snow"];

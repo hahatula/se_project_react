@@ -1,6 +1,7 @@
 import "./Header.css";
 import "./burger.css";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import logo from "../../assets/logo.svg";
 import avatar from "../../assets/avatar-placeholder.svg";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
@@ -32,7 +33,10 @@ function Header({ weatherData, handleAddButton }) {
   return (
     <header className="header">
       <div className="header__info">
-        <img className="header__logo" src={logo} alt="Logo" />
+        <Link to="/" className="header__link">
+          <img className="header__logo" src={logo} alt="Logo" />
+        </Link>
+
         <p className="header__data-and-geo">
           {currentDate}, {weatherData.city}
         </p>
@@ -61,10 +65,12 @@ function Header({ weatherData, handleAddButton }) {
         >
           + Add clothes
         </button>
-        <div className="header__user">
-          <p className="header__user-name">Terrence Tegegne</p>
-          <img className="header__user-avatar" src={avatar} alt="Aratar" />
-        </div>
+        <Link to="/Profile" className="header__link">
+          <div className="header__user">
+            <p className="header__user-name">Terrence Tegegne</p>
+            <img className="header__user-avatar" src={avatar} alt="Aratar" />
+          </div>
+        </Link>
       </div>
     </header>
   );

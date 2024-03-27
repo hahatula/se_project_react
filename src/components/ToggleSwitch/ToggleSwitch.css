@@ -8,6 +8,10 @@
   border: 2px solid #00000080;
 }
 
+.toggle:hover {
+  border: 2px solid #000;
+}
+
 .toggle__checkbox {
   height: 100%;
   width: 100%;
