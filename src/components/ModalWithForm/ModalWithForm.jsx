@@ -9,7 +9,6 @@ function ModalWithForm({ children, title, buttonText, onClose, name }) {
         <form className="modal__form form">
           <h2 className="form__title">{title}</h2>
           {children}
-
           <button className="form__submit" type="submit">
             {buttonText}
           </button>
