@@ -13,7 +13,7 @@ import {
 } from "../../utils/constants";
 import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
 import AddItemModal from "../AddItemModal/AddItemModal";
-import { getClothes } from "../../utils/api";
+import { getClothes, addClothes } from "../../utils/api";
 
 function App() {
   // Managing weather information_________
@@ -49,9 +49,9 @@ function App() {
       })
       .catch(console.error);
   }, []);
-  console.log(clothingItems);
 
   const handleAddItemSubmit = (newItem) => {
+    addClothes(newItem);
     setClothingItems([newItem, ...clothingItems]);
   };
 

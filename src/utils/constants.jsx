@@ -3,3 +3,5 @@ export const coordinates = {
   latitude: "32.05019466821797",
   longitude: "34.82419831844607",
 };
+
+export const baseUrl = "http://localhost:3001";
