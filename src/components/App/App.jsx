@@ -8,12 +8,12 @@ import Footer from "../Footer/Footer";
 import ItemModal from "../ItemModal/ItemModal";
 import { getWeather, filterWeatherData } from "../../utils/weatherApi";
 import {
-  defaultClothingItems,
   coordinates,
   weatherAPIKey,
 } from "../../utils/constants";
 import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
 import AddItemModal from "../AddItemModal/AddItemModal";
+import { getClothes } from "../../utils/api";
 
 function App() {
   // Managing weather information_________
@@ -41,15 +41,23 @@ function App() {
   }, []); // dependencies array is an empty array to turn on this useEffect only once on mount
 
   //Managing the list of clothes
-  const [clothingItems, setClothingItems] = useState(defaultClothingItems);
+  const [clothingItems, setClothingItems] = useState([]);
+  useEffect(() => {
+    getClothes()
+      .then((clothes) => {
+        setClothingItems(clothes);
+      })
+      .catch(console.error);
+  }, []);
+  console.log(clothingItems);
 
   const handleAddItemSubmit = (newItem) => {
     setClothingItems([newItem, ...clothingItems]);
-  }
+  };
 
   const handleDeleteButton = (item) => {
     console.log(`${item} deleted`);
-  }
+  };
 
   // Managing modal windows_____________
   const [modalIsActive, setModalIsActive] = useState(null);
@@ -111,13 +119,25 @@ function App() {
                 />
               }
             />
-            <Route path="/profile" element={<Profile handleItemClick={handleItemClick} clothingItems={clothingItems} handleAddButton={handleAddButton} />} />
+            <Route
+              path="/profile"
+              element={
+                <Profile
+                  handleItemClick={handleItemClick}
+                  clothingItems={clothingItems}
+                  handleAddButton={handleAddButton}
+                />
+              }
+            />
           </Routes>
 
           <Footer />
         </div>
         {modalIsActive === "add-garment" && (
-          <AddItemModal onCloseModal={handleActiveModalClose} onAddItem = {handleAddItemSubmit}/>
+          <AddItemModal
+            onCloseModal={handleActiveModalClose}
+            onAddItem={handleAddItemSubmit}
+          />
         )}
         {modalIsActive === "preview" && (
           <ItemModal

@@ -19,7 +19,7 @@ const handleWeather = (e) => {
 
 const handleSubmit = (e) => {
     e.preventDefault();
-    onAddItem({name, link:imageUrl, weather});
+    onAddItem({name, imageUrl, weather});
     onCloseModal();
 }
 
