@@ -40,6 +40,17 @@ function App() {
       .catch(console.error);
   }, []); // dependencies array is an empty array to turn on this useEffect only once on mount
 
+  //Managing the list of clothes
+  const [clothingItems, setClothingItems] = useState(defaultClothingItems);
+
+  const handleAddItemSubmit = (newItem) => {
+    setClothingItems([newItem, ...clothingItems]);
+  }
+
+  const handleDeleteButton = (item) => {
+    console.log(`${item} deleted`);
+  }
+
   // Managing modal windows_____________
   const [modalIsActive, setModalIsActive] = useState(null);
   const [selectedItem, setSelectedItem] = useState({});
@@ -96,22 +107,24 @@ function App() {
                 <Main
                   weatherData={weatherData}
                   handleItemClick={handleItemClick}
+                  clothingItems={clothingItems}
                 />
               }
             />
-            <Route path="/profile" element={<Profile handleItemClick={handleItemClick} />} />
+            <Route path="/profile" element={<Profile handleItemClick={handleItemClick} clothingItems={clothingItems} handleAddButton={handleAddButton} />} />
           </Routes>
 
           <Footer />
         </div>
         {modalIsActive === "add-garment" && (
-          <AddItemModal handleActiveModalClose={handleActiveModalClose}/>
+          <AddItemModal onCloseModal={handleActiveModalClose} onAddItem = {handleAddItemSubmit}/>
         )}
         {modalIsActive === "preview" && (
           <ItemModal
             name="preview"
             card={selectedItem}
             onClose={handleActiveModalClose}
+            onDelete={handleDeleteButton}
           />
         )}
       </CurrentTemperatureUnitContext.Provider>

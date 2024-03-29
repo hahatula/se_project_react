@@ -10,8 +10,15 @@
   width: 100%;
 }
 
-.modal__preview-info {
+.modal__info-wrapper {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
   padding: 20px 32px 32px;
+  gap: 12px;
+}
+
+.modal__preview-info {
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -22,6 +29,15 @@
 .modal__item-name {
   font-size: 20px;
   font-weight: 700;
+}
+
+.modal__delete-btn {
+  color: #ff4d00;
+  background-color: transparent;
+  border: none;
+  font-size: 20px;
+  font-weight: 700;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 640px) {
