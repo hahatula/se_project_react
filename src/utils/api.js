@@ -18,6 +18,9 @@ export const getClothes = () => {
 export const addClothes = ({ name, imageUrl, weather }) => {
   return fetch(`${baseUrl}` + `/items`, {
     method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify({
       name: name,
       imageUrl: imageUrl,
@@ -25,7 +28,13 @@ export const addClothes = ({ name, imageUrl, weather }) => {
     }),
   })
     .then(checkResponse)
-    .then((clothes) => {
-      return clothes;
+    .then((newItem) => {
+      return newItem;
     });
+};
+
+export const deleteClothes = (id) => {
+  return fetch(`${baseUrl}` + `/items/` + `${id}`, {
+    method: "DELETE",
+  }).then(checkResponse);
 };

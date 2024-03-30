@@ -7,13 +7,10 @@ import Profile from "../Profile/Profile";
 import Footer from "../Footer/Footer";
 import ItemModal from "../ItemModal/ItemModal";
 import { getWeather, filterWeatherData } from "../../utils/weatherApi";
-import {
-  coordinates,
-  weatherAPIKey,
-} from "../../utils/constants";
+import { coordinates, weatherAPIKey } from "../../utils/constants";
 import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
 import AddItemModal from "../AddItemModal/AddItemModal";
-import { getClothes, addClothes } from "../../utils/api";
+import { getClothes, addClothes, deleteClothes } from "../../utils/api";
 
 function App() {
   // Managing weather information_________
@@ -50,13 +47,48 @@ function App() {
       .catch(console.error);
   }, []);
 
-  const handleAddItemSubmit = (newItem) => {
-    addClothes(newItem);
-    setClothingItems([newItem, ...clothingItems]);
+  const [isAdding, setIsAdding] = useState(false);
+  const [newItem, setNewItem] = useState({});
+  useEffect(() => {
+    if (isAdding) {
+      addClothes(newItem)
+        .then((newItem) => {
+          setClothingItems([newItem, ...clothingItems]);
+          setIsAdding(!isAdding);
+        })
+        .catch(console.error);
+    }
+  }, [isAdding]);
+
+  const handleAddItemSubmit = (formData) => {
+    setNewItem(formData);
+    setIsAdding(!isAdding);
   };
 
-  const handleDeleteButton = (item) => {
-    console.log(`${item} deleted`);
+  const [isDeleting, setIsDeleting] = useState(false);
+  useEffect(() => {
+    if (isDeleting) {
+      console.log(`ok, let's delete:`);
+      console.log(selectedItem);
+      handleActiveModalClose();
+      deleteClothes(selectedItem._id)
+        .then((res) => {
+          setClothingItems(
+            clothingItems.filter((item) => {
+              return item !== selectedItem;
+            })
+          );
+          //delete from the list
+          setIsDeleting(!isDeleting);
+        })
+        .catch(console.error);
+    }
+  }, [isDeleting]);
+
+  const handleDeleteButton = () => {
+    console.log(`will delete:`);
+    console.log(selectedItem);
+    setIsDeleting(!isDeleting);
   };
 
   // Managing modal windows_____________

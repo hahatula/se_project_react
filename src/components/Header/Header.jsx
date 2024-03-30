@@ -23,13 +23,6 @@ function Header({ weatherData, handleAddButton }) {
     toggleMobileMenu();
   };
 
-  // Managing toggle_________
-  // const [checked, setChecked] = useState(false);
-  // const handleChange = () => {
-  //   setChecked(!checked);
-  //   console.log(checked);
-  // };
-
   return (
     <header className="header">
       <div className="header__info">
