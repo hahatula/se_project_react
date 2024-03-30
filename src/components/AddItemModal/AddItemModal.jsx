@@ -1,27 +1,27 @@
 import { useState } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
-function AddItemModal({onCloseModal, onAddItem}) {
-const [name, setName] = useState("");
-const handleNameChange = (e) => {
+function AddItemModal({ onCloseModal, onAddItem }) {
+  const [name, setName] = useState("");
+  const handleNameChange = (e) => {
     setName(e.target.value);
-}
+  };
 
-const [imageUrl, setImageUrl] = useState("");
-const handleImageUrl = (e) => {
+  const [imageUrl, setImageUrl] = useState("");
+  const handleImageUrl = (e) => {
     setImageUrl(e.target.value);
-}
+  };
 
-const [weather, setWeather] = useState("");
-const handleWeather = (e) => {
+  const [weather, setWeather] = useState("");
+  const handleWeather = (e) => {
     setWeather(e.target.value);
-}
+  };
 
-const handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    onAddItem({name, imageUrl, weather});
+    onAddItem({ name, imageUrl, weather });
     onCloseModal();
-}
+  };
 
   return (
     <ModalWithForm
