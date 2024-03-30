@@ -68,8 +68,6 @@ function App() {
   const [isDeleting, setIsDeleting] = useState(false);
   useEffect(() => {
     if (isDeleting) {
-      console.log(`ok, let's delete:`);
-      console.log(selectedItem);
       handleActiveModalClose();
       deleteClothes(selectedItem._id)
         .then((res) => {
@@ -86,8 +84,6 @@ function App() {
   }, [isDeleting]);
 
   const handleDeleteButton = () => {
-    console.log(`will delete:`);
-    console.log(selectedItem);
     setIsDeleting(!isDeleting);
   };
 

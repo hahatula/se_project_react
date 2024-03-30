@@ -19,7 +19,6 @@ function Header({ weatherData, handleAddButton }) {
   };
 
   const mobileMenuHandler = () => {
-    console.log("clicked");
     toggleMobileMenu();
   };
 

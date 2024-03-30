@@ -7,8 +7,8 @@ import WeatherIllustration from "../WeatherIllustration/WeatherIllustration";
 function WeatherCard({ weatherData }) {
   const temperature = useContext(CurrentTemperatureUnitContext);
   const temperatureUnit = temperature.currentTemperatureUnit;
-  console.log(weatherData.temperature.temperatureUnit); // why undefined?
-  console.log(weatherData.temperature[temperatureUnit]); // why ok?
+  //console.log(weatherData.temperature.temperatureUnit); // why undefined? Here temperatureUnit is literally a key named "temperatureUnit" and I don't have such key.
+  //console.log(weatherData.temperature[temperatureUnit]); // why ok? Here temperatureUnit is dynamic and equals weatherData.temperature["F"] or weatherData.temperature["C"].
 
   return (
     <section
