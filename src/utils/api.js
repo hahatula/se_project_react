@@ -7,16 +7,18 @@ export const checkResponse = (res) => {
   return Promise.reject(`Error: ${res.status}`);
 };
 
+export const request = (url, options) => {
+  return fetch(url, options).then(checkResponse);
+};
+
 export const getClothes = () => {
-  return fetch(`${baseUrl}` + `/items`)
-    .then(checkResponse)
-    .then((clothes) => {
-      return clothes;
-    });
+  return request(`${baseUrl}` + `/items`).then((clothes) => {
+    return clothes;
+  });
 };
 
 export const addClothes = ({ name, imageUrl, weather }) => {
-  return fetch(`${baseUrl}` + `/items`, {
+  return request(`${baseUrl}` + `/items`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -26,15 +28,13 @@ export const addClothes = ({ name, imageUrl, weather }) => {
       imageUrl: imageUrl,
       weather: weather,
     }),
-  })
-    .then(checkResponse)
-    .then((newItem) => {
-      return newItem;
-    });
+  }).then((newItem) => {
+    return newItem;
+  });
 };
 
 export const deleteClothes = (id) => {
-  return fetch(`${baseUrl}` + `/items/` + `${id}`, {
+  return request(`${baseUrl}` + `/items/` + `${id}`, {
     method: "DELETE",
-  }).then(checkResponse);
+  });
 };
