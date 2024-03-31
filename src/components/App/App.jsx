@@ -47,44 +47,29 @@ function App() {
       .catch(console.error);
   }, []);
 
-  const [isAdding, setIsAdding] = useState(false);
-  const [newItem, setNewItem] = useState({});
-  useEffect(() => {
-    if (isAdding) {
-      addClothes(newItem)
-        .then((newItem) => {
-          setClothingItems([newItem, ...clothingItems]);
-          setIsAdding(!isAdding);
-        })
-        .catch(console.error);
-    }
-  }, [isAdding]);
-
   const handleAddItemSubmit = (formData) => {
-    setNewItem(formData);
-    setIsAdding(!isAdding);
+    addClothes(formData)
+      .then((newItem) => {
+        setClothingItems([newItem, ...clothingItems]);
+        handleActiveModalClose();
+      })
+      .catch(console.error);
   };
 
   const [isDeleting, setIsDeleting] = useState(false);
-  useEffect(() => {
-    if (isDeleting) {
-      handleActiveModalClose();
-      deleteClothes(selectedItem._id)
-        .then((res) => {
-          setClothingItems(
-            clothingItems.filter((item) => {
-              return item !== selectedItem;
-            })
-          );
-          //delete from the list
-          setIsDeleting(!isDeleting);
-        })
-        .catch(console.error);
-    }
-  }, [isDeleting]);
 
   const handleDeleteButton = () => {
-    setIsDeleting(!isDeleting);
+    deleteClothes(selectedItem._id)
+      .then((res) => {
+        //delete from the list
+        setClothingItems(
+          clothingItems.filter((item) => {
+            return item !== selectedItem;
+          })
+        );
+        handleActiveModalClose();
+      })
+      .catch(console.error);
   };
 
   // Managing modal windows_____________
