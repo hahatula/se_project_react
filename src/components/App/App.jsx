@@ -56,8 +56,6 @@ function App() {
       .catch(console.error);
   };
 
-  const [isDeleting, setIsDeleting] = useState(false);
-
   const handleDeleteButton = () => {
     deleteClothes(selectedItem._id)
       .then((res) => {
