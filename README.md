@@ -11,7 +11,7 @@ CSS,
 Weather API,
 Mock API
 
-![Cover image](wtwr.jpg)
+![Cover image](src/assets/wtwr.jpg)
 
 ## Link
 This site was built using [GitHub Pages]: https://hahatula.github.io/se_project_react/
