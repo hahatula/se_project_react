@@ -15,3 +15,4 @@ Mock API
 
 ## Link
 This site was built using [GitHub Pages]: https://hahatula.github.io/se_project_react/
+The backend repo: https://github.com/hahatula/se_project_express
