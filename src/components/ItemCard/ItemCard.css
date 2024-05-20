@@ -30,4 +30,5 @@
   width: 100%;
   aspect-ratio: 1;
   margin-top: -60px;
+  object-fit: cover;
 }
