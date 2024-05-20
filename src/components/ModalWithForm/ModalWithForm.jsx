@@ -1,5 +1,6 @@
-import "./ModalWithForm.css";
-import "./Form.css";
+import './ModalWithForm.css';
+import './Form.css';
+import { Link } from 'react-router-dom';
 
 function ModalWithForm({
   children,
@@ -8,6 +9,7 @@ function ModalWithForm({
   onClose,
   name,
   onSubmit,
+  altLink,
 }) {
   return (
     <div className={`modal modal_type_${name}`}>
@@ -16,9 +18,12 @@ function ModalWithForm({
         <form onSubmit={onSubmit} className="modal__form form">
           <h2 className="form__title">{title}</h2>
           {children}
-          <button className="form__submit" type="submit">
-            {buttonText}
-          </button>
+          <div className="form__buttons">
+            <button className="form__submit" type="submit">
+              {buttonText}
+            </button>
+            {altLink && <Link className="form__alt-option">{altLink}</Link>}
+          </div>
         </form>
       </div>
     </div>

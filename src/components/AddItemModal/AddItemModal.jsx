@@ -29,6 +29,7 @@ function AddItemModal({ onCloseModal, onAddItem }) {
       buttonText="Add garment"
       onClose={onCloseModal}
       onSubmit={handleSubmit}
+      altLink="test"
     >
       <label htmlFor="name" className="form__label">
         Name

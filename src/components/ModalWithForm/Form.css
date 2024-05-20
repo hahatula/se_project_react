@@ -61,8 +61,14 @@
   font-weight: 700;
 }
 
-.form__submit {
+.form__buttons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   margin-top: 8px;
+}
+
+.form__submit {
   font-size: 16px;
   font-weight: 700;
   cursor: pointer;
@@ -80,6 +86,16 @@
 
 .form__submit:disabled {
   background-color: rgba(0, 0, 0, 0.3);
+}
+
+.form__alt-option {
+  color: #000;
+  text-decoration: none;
+  opacity: 0.5;
+}
+
+.form__alt-option:hover {
+  opacity: 1;
 }
 
 @media screen and (max-width: 640px) {
