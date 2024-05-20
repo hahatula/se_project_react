@@ -13,7 +13,7 @@ export const request = (url, options) => {
 
 export const getClothes = () => {
   return request(`${baseUrl}` + `/items`).then((clothes) => {
-    return clothes;
+    return clothes.data;
   });
 };
 
