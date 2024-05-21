@@ -1,18 +1,19 @@
-import { useState } from "react";
-import ModalWithForm from "../ModalWithForm/ModalWithForm";
+import { useState } from 'react';
+import ModalWithForm from '../ModalWithForm/ModalWithForm';
+import { Link } from 'react-router-dom';
 
 function AddItemModal({ onCloseModal, onAddItem }) {
-  const [name, setName] = useState("");
+  const [name, setName] = useState('');
   const handleNameChange = (e) => {
     setName(e.target.value);
   };
 
-  const [imageUrl, setImageUrl] = useState("");
+  const [imageUrl, setImageUrl] = useState('');
   const handleImageUrl = (e) => {
     setImageUrl(e.target.value);
   };
 
-  const [weather, setWeather] = useState("");
+  const [weather, setWeather] = useState('');
   const handleWeather = (e) => {
     setWeather(e.target.value);
   };
@@ -26,10 +27,8 @@ function AddItemModal({ onCloseModal, onAddItem }) {
     <ModalWithForm
       name="add-garment"
       title="New garment"
-      buttonText="Add garment"
       onClose={onCloseModal}
       onSubmit={handleSubmit}
-      altLink="test"
     >
       <label htmlFor="name" className="form__label">
         Name
@@ -44,7 +43,7 @@ function AddItemModal({ onCloseModal, onAddItem }) {
         />
       </label>
       <label htmlFor="image" className="form__label">
-        Image{" "}
+        Image{' '}
         <input
           type="url"
           id="image"
@@ -97,6 +96,12 @@ function AddItemModal({ onCloseModal, onAddItem }) {
           </label>
         </div>
       </fieldset>
+      <div className="form__buttons">
+        <button className="form__submit" type="submit">
+          Add garment
+        </button>
+        <Link className="form__alt-option">test</Link>
+      </div>
     </ModalWithForm>
   );
 }

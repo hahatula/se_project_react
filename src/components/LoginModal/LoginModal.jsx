@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import ModalWithForm from '../ModalWithForm/ModalWithForm';
 
 function LoginModal({ onCloseModal }) {
@@ -20,12 +22,10 @@ function LoginModal({ onCloseModal }) {
     <ModalWithForm
       name="login"
       title="Log In"
-      buttonText="Log In"
       onClose={onCloseModal}
-      //   onSubmit={handleSubmit}
-      altLink="or Sign Up"
+      onSubmit={handleSubmit}
     >
-      <label htmlFor="name" className="form__label">
+      <label htmlFor="email" className="form__label">
         Email
         <input
           type="text"
@@ -37,10 +37,10 @@ function LoginModal({ onCloseModal }) {
           className="form__input"
         />
       </label>
-      <label htmlFor="name" className="form__label">
+      <label htmlFor="password" className="form__label">
         Password
         <input
-          type="text"
+          type="password"
           id="password"
           name="password"
           placeholder="Password"
@@ -49,6 +49,12 @@ function LoginModal({ onCloseModal }) {
           className="form__input"
         />
       </label>
+      <div className="form__buttons">
+        <button className="form__submit" type="submit">
+          Log In
+        </button>
+        <Link className="form__alt-option">or Sign Up</Link>
+      </div>
     </ModalWithForm>
   );
 }
