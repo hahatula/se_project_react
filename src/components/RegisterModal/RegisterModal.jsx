@@ -72,7 +72,7 @@ function RegisterModal({ onCloseModal }) {
         />
       </label>
       <label htmlFor="avatar" className="form__label">
-      Avatar URL*
+        Avatar URL*
         <input
           type="url"
           id="avatar"
@@ -85,7 +85,7 @@ function RegisterModal({ onCloseModal }) {
       </label>
       <div className="form__buttons">
         <button className="form__submit" type="submit">
-        Sign Up
+          Sign Up
         </button>
         <Link className="form__alt-option">or Log In</Link>
       </div>

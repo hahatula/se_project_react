@@ -1,4 +1,4 @@
-import { baseUrl } from "./constants";
+import { BASE_URL } from "./constants";
 
 export const checkResponse = (res) => {
   if (res.ok) {
@@ -12,13 +12,13 @@ export const request = (url, options) => {
 };
 
 export const getClothes = () => {
-  return request(`${baseUrl}` + `/items`).then((clothes) => {
+  return request(`${BASE_URL}` + `/items`).then((clothes) => {
     return clothes.data;
   });
 };
 
 export const addClothes = ({ name, imageUrl, weather }) => {
-  return request(`${baseUrl}` + `/items`, {
+  return request(`${BASE_URL}` + `/items`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -34,7 +34,7 @@ export const addClothes = ({ name, imageUrl, weather }) => {
 };
 
 export const deleteClothes = (id) => {
-  return request(`${baseUrl}` + `/items/` + `${id}`, {
+  return request(`${BASE_URL}` + `/items/` + `${id}`, {
     method: "DELETE",
   });
 };
