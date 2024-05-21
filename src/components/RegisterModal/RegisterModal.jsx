@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import ModalWithForm from '../ModalWithForm/ModalWithForm';
 
-function RegisterModal({ onCloseModal, onRegister }) {
+function RegisterModal({ onCloseModal, onRegister, handleLogInButton }) {
   const [email, setEmail] = useState('');
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -87,7 +87,7 @@ function RegisterModal({ onCloseModal, onRegister }) {
         <button className="form__submit" type="submit">
           Sign Up
         </button>
-        <Link className="form__alt-option">or Log In</Link>
+        <button className="form__alt-option" onClick={handleLogInButton}>or Log In</button>
       </div>
     </ModalWithForm>
   );

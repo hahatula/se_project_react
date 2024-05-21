@@ -89,8 +89,10 @@
 }
 
 .form__alt-option {
-  color: #000;
-  text-decoration: none;
+  font-weight: 700;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
   opacity: 0.5;
 }
 

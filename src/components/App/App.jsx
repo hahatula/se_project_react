@@ -171,12 +171,14 @@ function App() {
           <RegisterModal
             onCloseModal={handleActiveModalClose}
             onRegister={handleRegisterSubmit}
+            handleLogInButton={handleLogInButton}
           />
         )}
         {modalIsActive === 'log-in' && (
           <LoginModal
             onCloseModal={handleActiveModalClose}
             onLogin={handleLoginSubmit}
+            handleSignUpButton={handleSignUpButton}
           />
         )}
         {modalIsActive === 'add-garment' && (

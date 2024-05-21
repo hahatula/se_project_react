@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import ModalWithForm from '../ModalWithForm/ModalWithForm';
 
-function LoginModal({ onCloseModal, onLogin }) {
+function LoginModal({ onCloseModal, onLogin, handleSignUpButton }) {
   const [email, setEmail] = useState('');
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -53,7 +53,7 @@ function LoginModal({ onCloseModal, onLogin }) {
         <button className="form__submit" type="submit">
           Log In
         </button>
-        <Link className="form__alt-option">or Sign Up</Link>
+        <button className="form__alt-option" onClick={handleSignUpButton}>or Sign Up</button>
       </div>
     </ModalWithForm>
   );
