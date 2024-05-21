@@ -1,15 +1,21 @@
-import "./Header.css";
-import "./burger.css";
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import logo from "../../assets/logo.svg";
-import avatar from "../../assets/avatar-placeholder.svg";
-import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
+import './Header.css';
+import './burger.css';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import logo from '../../assets/logo.svg';
+import avatar from '../../assets/avatar-placeholder.svg';
+import ToggleSwitch from '../ToggleSwitch/ToggleSwitch';
 
-function Header({ weatherData, handleAddButton }) {
-  const currentDate = new Date().toLocaleString("default", {
-    month: "long",
-    day: "numeric",
+function Header({
+  weatherData,
+  isLoggedIn,
+  handleAddButton,
+  handleLogInButton,
+  handleSignUpButton,
+}) {
+  const currentDate = new Date().toLocaleString('default', {
+    month: 'long',
+    day: 'numeric',
   });
 
   const [isMobileMenuOpened, setIsMobileMenuOpened] = useState(false);
@@ -36,33 +42,46 @@ function Header({ weatherData, handleAddButton }) {
       <div
         className={`header__user-tools ${
           isMobileMenuOpened
-            ? "header__user-tools_opened"
-            : "header__user-tools_closed"
+            ? 'header__user-tools_opened'
+            : 'header__user-tools_closed'
         }`}
       >
         <div
           onClick={mobileMenuHandler}
           className={`header__mobile-menu-icon ${
-            isMobileMenuOpened ? "burger burger-opened" : "burger"
+            isMobileMenuOpened ? 'burger burger-opened' : 'burger'
           }`}
         >
           <div className="burger__element burger__element_type_top" />
           <div className="burger__element burger__element_type_bottom" />
         </div>
         <ToggleSwitch />
-        <button
-          onClick={handleAddButton}
-          type="button"
-          className="header__add-btn"
-        >
-          + Add clothes
-        </button>
-        <Link to="/profile" className="header__link">
-          <div className="header__user">
-            <p className="header__user-name">Terrence Tegegne</p>
-            <img className="header__user-avatar" src={avatar} alt="Aratar" />
-          </div>
-        </Link>
+        {isLoggedIn ? (
+          <>
+            <button
+              onClick={handleAddButton}
+              type="button"
+              className="header__btn"
+            >
+              + Add clothes
+            </button>
+            <Link to="/profile" className="header__link">
+              <div className="header__user">
+                <p className="header__user-name">Terrence Tegegne</p>
+                <img
+                  className="header__user-avatar"
+                  src={avatar}
+                  alt="Aratar"
+                />
+              </div>
+            </Link>
+          </>
+        ) : (
+          <>
+            <button className="header__btn" onClick={handleSignUpButton}>Sign Up</button>
+            <button className="header__btn" onClick={handleLogInButton}>Log In</button>
+          </>
+        )}
       </div>
     </header>
   );

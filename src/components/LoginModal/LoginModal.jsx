@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import ModalWithForm from '../ModalWithForm/ModalWithForm';
 
-function LoginModal({ onCloseModal }) {
+function LoginModal({ onCloseModal, onLogin }) {
   const [email, setEmail] = useState('');
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -15,7 +15,7 @@ function LoginModal({ onCloseModal }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // onAddItem({ name, imageUrl, weather }); add handler
+    onLogin();
   };
 
   return (

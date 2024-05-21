@@ -21,7 +21,7 @@
 
 .header__data-and-geo,
 .header__user-name,
-.header__add-btn {
+.header__btn {
   margin: 0;
   text-wrap: nowrap;
 }
@@ -36,7 +36,7 @@
   display: none;
 }
 
-.header__add-btn {
+.header__btn {
   font-family: "Cabinet Grotesk";
   line-height: 1.4;
   font-size: 20px;
@@ -46,7 +46,7 @@
   cursor: pointer;
 }
 
-.header__add-btn:focus-visible {
+.header__btn:focus-visible {
   outline: none;
 }
 
@@ -89,7 +89,7 @@
     column-gap: 0;
   }
 
-  .header__user-tools_closed .header__add-btn,
+  .header__user-tools_closed .header__btn,
   .header__user-tools_closed .header__user,
   .header__user-tools_closed .toggle {
     display: none;
