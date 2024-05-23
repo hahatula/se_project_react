@@ -1,5 +1,11 @@
 import { useState, useEffect } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import {
+  Routes,
+  Route,
+  Navigate,
+  useNavigate,
+  useLocation,
+} from 'react-router-dom';
 import './App.css';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
@@ -13,16 +19,22 @@ import AddItemModal from '../AddItemModal/AddItemModal';
 import RegisterModal from '../RegisterModal/RegisterModal';
 import LoginModal from '../LoginModal/LoginModal';
 import { getClothes, addClothes, deleteClothes } from '../../utils/api';
+import AppContext from '../../contexts/AppContext';
+import ProtectedRoute from '../PrptectedRoute/ProtectedRoute';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
 
-  const handleRegisterSubmit = () => {
-    console.log("registered")
-  }
-  const handleLoginSubmit = () => {
-    console.log("logged in")
-  }
+  const location = useLocation();
+
+  const handleRegistration = (formData) => {
+    console.log(formData);
+  };
+  const handleLogin = () => {
+    console.log('logged in');
+  };
+
   // Managing weather information_________
   const [weatherData, setWeatherData] = useState({
     type: ' ',
@@ -133,68 +145,74 @@ function App() {
       <CurrentTemperatureUnitContext.Provider
         value={{ currentTemperatureUnit, handleToggleSwitchChange }}
       >
-        <div className="app__container">
-          <Header
-            weatherData={weatherData}
-            isLoggedIn={isLoggedIn}
-            handleAddButton={handleAddButton}
-            handleLogInButton={handleLogInButton}
-            handleSignUpButton={handleSignUpButton}
-          />
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <Main
-                  weatherData={weatherData}
-                  handleItemClick={handleItemClick}
-                  clothingItems={clothingItems}
-                />
-              }
+        <AppContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
+          <div className="app__container">
+            <Header
+              weatherData={weatherData}
+              isLoggedIn={isLoggedIn}
+              handleAddButton={handleAddButton}
+              handleLogInButton={handleLogInButton}
+              handleSignUpButton={handleSignUpButton}
             />
-            <Route
-              path="/profile"
-              element={
-                <Profile
-                  handleItemClick={handleItemClick}
-                  clothingItems={clothingItems}
-                  handleAddButton={handleAddButton}
-                />
-              }
-            />
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <ProtectedRoute anonymous>
+                    <Main
+                      weatherData={weatherData}
+                      handleItemClick={handleItemClick}
+                      clothingItems={clothingItems}
+                    />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/profile"
+                element={
+                  <ProtectedRoute>
+                    <Profile
+                      handleItemClick={handleItemClick}
+                      clothingItems={clothingItems}
+                      handleAddButton={handleAddButton}
+                    />
+                  </ProtectedRoute>
+                }
+              />
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
 
-          <Footer />
-        </div>
-        {modalIsActive === 'register' && (
-          <RegisterModal
-            onCloseModal={handleActiveModalClose}
-            onRegister={handleRegisterSubmit}
-            handleLogInButton={handleLogInButton}
-          />
-        )}
-        {modalIsActive === 'log-in' && (
-          <LoginModal
-            onCloseModal={handleActiveModalClose}
-            onLogin={handleLoginSubmit}
-            handleSignUpButton={handleSignUpButton}
-          />
-        )}
-        {modalIsActive === 'add-garment' && (
-          <AddItemModal
-            onCloseModal={handleActiveModalClose}
-            onAddItem={handleAddItemSubmit}
-          />
-        )}
-        {modalIsActive === 'preview' && (
-          <ItemModal
-            name="preview"
-            card={selectedItem}
-            onClose={handleActiveModalClose}
-            onDelete={handleDeleteButton}
-          />
-        )}
+            <Footer />
+          </div>
+          {modalIsActive === 'register' && (
+            <RegisterModal
+              onCloseModal={handleActiveModalClose}
+              onRegister={handleRegistration}
+              handleLogInButton={handleLogInButton}
+            />
+          )}
+          {modalIsActive === 'log-in' && (
+            <LoginModal
+              onCloseModal={handleActiveModalClose}
+              onLogin={handleLogin}
+              handleSignUpButton={handleSignUpButton}
+            />
+          )}
+          {modalIsActive === 'add-garment' && (
+            <AddItemModal
+              onCloseModal={handleActiveModalClose}
+              onAddItem={handleAddItemSubmit}
+            />
+          )}
+          {modalIsActive === 'preview' && (
+            <ItemModal
+              name="preview"
+              card={selectedItem}
+              onClose={handleActiveModalClose}
+              onDelete={handleDeleteButton}
+            />
+          )}
+        </AppContext.Provider>
       </CurrentTemperatureUnitContext.Provider>
     </div>
   );
