@@ -9,6 +9,14 @@ function AddItemModal({ onCloseModal, onAddItem }) {
     weather: '',
   });
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     onAddItem(data);
@@ -91,7 +99,6 @@ function AddItemModal({ onCloseModal, onAddItem }) {
         <button className="form__submit" type="submit">
           Add garment
         </button>
-        <Link className="form__alt-option">test</Link>
       </div>
     </ModalWithForm>
   );

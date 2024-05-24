@@ -31,12 +31,27 @@ function App() {
 
   const handleRegistration = ({ name, avatarUrl, email, password }) => {
     console.log(`reg: ${name},  ${avatarUrl}, ${email}, ${password}`);
-    auth.register(name, avatarUrl, email, password).then(() => {
-      auth.authorize({ email, password }).catch(console.error);
-    });
+    auth
+      .register(name, avatarUrl, email, password)
+      .then(() => {
+        handleLogin({ email, password });
+      })
+      .catch(console.error);
   };
   const handleLogin = (formData) => {
     console.log(`login: ${formData.email}, ${formData.password}`);
+    if (!email || !password) {
+      return;
+    }
+    auth.authorize(formData.email, formData.password)
+    .then((data) => {
+      if (data.token) {
+        setIsLoggedIn(true);
+        setModalIsActive(null);
+      }
+    })
+    .catch(console.error);
+    console.log('logged in');
   };
 
   // Managing weather information_________
@@ -162,13 +177,13 @@ function App() {
               <Route
                 path="/"
                 element={
-                  <ProtectedRoute anonymous>
+                  
                     <Main
                       weatherData={weatherData}
                       handleItemClick={handleItemClick}
                       clothingItems={clothingItems}
                     />
-                  </ProtectedRoute>
+                  
                 }
               />
               <Route
