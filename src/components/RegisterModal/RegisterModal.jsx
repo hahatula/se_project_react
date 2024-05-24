@@ -1,31 +1,25 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import ModalWithForm from '../ModalWithForm/ModalWithForm';
 
 function RegisterModal({ onCloseModal, onRegister, handleLogInButton }) {
-  const [email, setEmail] = useState('');
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
+  const [data, setData] = useState({
+    name: '',
+    avatarUrl: '',
+    email: '',
+    password: '',
+  });
 
-  const [password, setPassword] = useState('');
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
-
-  const [name, setName] = useState('');
-  const handleNameChange = (e) => {
-    setName(e.target.value);
-  };
-
-  const [avatarUrl, setAvatarUrl] = useState('');
-  const handleAvatarUrl = (e) => {
-    setAvatarUrl(e.target.value);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onRegister({ email, password, name, avatarUrl});
+    onRegister(data);
   };
 
   return (
@@ -42,8 +36,8 @@ function RegisterModal({ onCloseModal, onRegister, handleLogInButton }) {
           id="email"
           name="email"
           placeholder="Email"
-          value={email}
-          onChange={handleEmailChange}
+          value={data.email}
+          onChange={handleChange}
           className="form__input"
         />
       </label>
@@ -54,8 +48,8 @@ function RegisterModal({ onCloseModal, onRegister, handleLogInButton }) {
           id="password"
           name="password"
           placeholder="Password"
-          value={password}
-          onChange={handlePasswordChange}
+          value={data.password}
+          onChange={handleChange}
           className="form__input"
         />
       </label>
@@ -66,8 +60,8 @@ function RegisterModal({ onCloseModal, onRegister, handleLogInButton }) {
           id="name"
           name="name"
           placeholder="Name"
-          value={name}
-          onChange={handleNameChange}
+          value={data.name}
+          onChange={handleChange}
           className="form__input"
         />
       </label>
@@ -78,8 +72,8 @@ function RegisterModal({ onCloseModal, onRegister, handleLogInButton }) {
           id="avatar"
           name="avatarUrl"
           placeholder="Avatar URL"
-          value={avatarUrl}
-          onChange={handleAvatarUrl}
+          value={data.avatarUrl}
+          onChange={handleChange}
           className="form__input"
         />
       </label>
@@ -87,7 +81,9 @@ function RegisterModal({ onCloseModal, onRegister, handleLogInButton }) {
         <button className="form__submit" type="submit">
           Sign Up
         </button>
-        <button className="form__alt-option" onClick={handleLogInButton}>or Log In</button>
+        <button className="form__alt-option" onClick={handleLogInButton}>
+          or Log In
+        </button>
       </div>
     </ModalWithForm>
   );

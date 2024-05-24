@@ -1,21 +1,23 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import ModalWithForm from '../ModalWithForm/ModalWithForm';
 
 function LoginModal({ onCloseModal, onLogin, handleSignUpButton }) {
-  const [email, setEmail] = useState('');
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
+  const [data, setData] = useState({
+    email: '',
+    password: '',
+  });
 
-  const [password, setPassword] = useState('');
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onLogin();
+    onLogin(data);
   };
 
   return (
@@ -32,8 +34,8 @@ function LoginModal({ onCloseModal, onLogin, handleSignUpButton }) {
           id="email"
           name="email"
           placeholder="Email"
-          value={email}
-          onChange={handleEmailChange}
+          value={data.email}
+          onChange={handleChange}
           className="form__input"
         />
       </label>
@@ -44,8 +46,8 @@ function LoginModal({ onCloseModal, onLogin, handleSignUpButton }) {
           id="password"
           name="password"
           placeholder="Password"
-          value={password}
-          onChange={handlePasswordChange}
+          value={data.password}
+          onChange={handleChange}
           className="form__input"
         />
       </label>
@@ -53,7 +55,9 @@ function LoginModal({ onCloseModal, onLogin, handleSignUpButton }) {
         <button className="form__submit" type="submit">
           Log In
         </button>
-        <button className="form__alt-option" onClick={handleSignUpButton}>or Sign Up</button>
+        <button className="form__alt-option" onClick={handleSignUpButton}>
+          or Sign Up
+        </button>
       </div>
     </ModalWithForm>
   );

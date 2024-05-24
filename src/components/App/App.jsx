@@ -21,6 +21,7 @@ import LoginModal from '../LoginModal/LoginModal';
 import { getClothes, addClothes, deleteClothes } from '../../utils/api';
 import AppContext from '../../contexts/AppContext';
 import ProtectedRoute from '../PrptectedRoute/ProtectedRoute';
+import * as auth from '../../utils/auth';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -28,11 +29,14 @@ function App() {
 
   const location = useLocation();
 
-  const handleRegistration = (formData) => {
-    console.log(formData);
+  const handleRegistration = ({ name, avatarUrl, email, password }) => {
+    console.log(`reg: ${name},  ${avatarUrl}, ${email}, ${password}`);
+    auth.register(name, avatarUrl, email, password).then(() => {
+      auth.authorize({ email, password }).catch(console.error);
+    });
   };
-  const handleLogin = () => {
-    console.log('logged in');
+  const handleLogin = (formData) => {
+    console.log(`login: ${formData.email}, ${formData.password}`);
   };
 
   // Managing weather information_________
