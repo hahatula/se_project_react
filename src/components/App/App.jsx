@@ -75,7 +75,6 @@ function App() {
           setToken(data.token);
           getUserInfo(data.token).then((user) => {
             setCurrentUser(user);
-            setCurrentUser({ ...currentUser, token: data.token });
             console.log(currentUser);
             setIsLoggedIn(true);
             setModalIsActive(null);
@@ -122,18 +121,17 @@ function App() {
   }, []);
 
   const handleAddItemSubmit = (formData) => {
-    console.log(currentUser);
+    const owner = getToken();
     addClothes(
       {
         name: formData.name,
         imageUrl: formData.imageUrl,
         weather: formData.weather,
-        // owner: currentUser,
       },
-      currentUser
+      owner
     )
       .then((newItem) => {
-        setClothingItems([newItem, ...clothingItems]);
+        setClothingItems([newItem.data, ...clothingItems]);
         handleActiveModalClose();
       })
       .catch(console.error);
