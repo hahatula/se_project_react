@@ -18,19 +18,38 @@ import { CurrentTemperatureUnitContext } from '../../contexts/CurrentTemperature
 import AddItemModal from '../AddItemModal/AddItemModal';
 import RegisterModal from '../RegisterModal/RegisterModal';
 import LoginModal from '../LoginModal/LoginModal';
-import { getClothes, addClothes, deleteClothes } from '../../utils/api';
+import { getClothes, addClothes, deleteClothes, getUserInfo } from '../../utils/api';
 import AppContext from '../../contexts/AppContext';
 import ProtectedRoute from '../PrptectedRoute/ProtectedRoute';
 import * as auth from '../../utils/auth';
+import { setToken, getToken, removeToken } from '../../utils/token';
+
 
 function App() {
+  const [userData, setUserData] = useState({ name: "", email: "" });
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
 
   const location = useLocation();
 
+  useEffect(() => {
+    const jwt = getToken();
+      
+    if (!jwt) {
+      return;
+    }
+  
+    getUserInfo(jwt)
+    .then(({ name, email }) => {
+      // If the response is successful, log the user in, save their 
+      // data to state, and navigate them to /ducks.
+      setIsLoggedIn(true);
+      setUserData({ name, email });
+    })
+    .catch(console.error);
+  }, []);
+
   const handleRegistration = ({ name, avatarUrl, email, password }) => {
-    console.log(`reg: ${name},  ${avatarUrl}, ${email}, ${password}`);
     auth
       .register(name, avatarUrl, email, password)
       .then(() => {
@@ -46,6 +65,8 @@ function App() {
     auth.authorize(formData.email, formData.password)
     .then((data) => {
       if (data.token) {
+        setToken(data.token);
+        //set user data??
         setIsLoggedIn(true);
         setModalIsActive(null);
       }

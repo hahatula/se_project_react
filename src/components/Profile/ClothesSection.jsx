@@ -8,7 +8,7 @@ function ClothesSection({ handleItemClick, clothingItems, handleAddButton }) {
         <button
           onClick={handleAddButton}
           type="button"
-          className="header__add-btn profile__add-btn"
+          className="header__btn profile__add-btn"
         >
           + Add new
         </button>
