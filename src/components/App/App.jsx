@@ -121,14 +121,14 @@ function App() {
   }, []);
 
   const handleAddItemSubmit = (formData) => {
-    const owner = getToken();
+    const user = getToken();
     addClothes(
       {
         name: formData.name,
         imageUrl: formData.imageUrl,
         weather: formData.weather,
       },
-      owner
+      user
     )
       .then((newItem) => {
         setClothingItems([newItem.data, ...clothingItems]);
@@ -138,7 +138,8 @@ function App() {
   };
 
   const handleDeleteButton = () => {
-    deleteClothes(selectedItem._id)
+    const user = getToken();
+    deleteClothes(selectedItem._id, user)
       .then((res) => {
         //delete from the list
         setClothingItems(

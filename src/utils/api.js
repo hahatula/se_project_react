@@ -1,4 +1,4 @@
-import { BASE_URL } from "./constants";
+import { BASE_URL } from './constants';
 
 export const checkResponse = (res) => {
   if (res.ok) {
@@ -19,9 +19,9 @@ export const getClothes = () => {
 
 export const addClothes = ({ name, imageUrl, weather }, token) => {
   return request(`${BASE_URL}` + `/items`, {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
@@ -34,9 +34,12 @@ export const addClothes = ({ name, imageUrl, weather }, token) => {
   });
 };
 
-export const deleteClothes = (id) => {
+export const deleteClothes = (id, token) => {
   return request(`${BASE_URL}` + `/items/` + `${id}`, {
-    method: "DELETE",
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
 };
 
@@ -44,10 +47,10 @@ export const deleteClothes = (id) => {
 export const getUserInfo = (token) => {
   // Send a GET request to /users/me
   return fetch(`${BASE_URL}/users/me`, {
-    method: "GET",
+    method: 'GET',
     headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
       // Specify an authorization header with an appropriately
       // formatted value.
       Authorization: `Bearer ${token}`,
@@ -55,4 +58,4 @@ export const getUserInfo = (token) => {
   }).then((res) => {
     return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
   });
-}
+};
