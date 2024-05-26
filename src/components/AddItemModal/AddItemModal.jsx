@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import ModalWithForm from '../ModalWithForm/ModalWithForm';
-import { Link } from 'react-router-dom';
 
 function AddItemModal({ onCloseModal, onAddItem }) {
   const [data, setData] = useState({

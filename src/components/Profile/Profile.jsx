@@ -1,11 +1,16 @@
-import "./Profile.css";
-import SideBar from "./SideBar";
-import ClothesSection from "./ClothesSection";
+import './Profile.css';
+import SideBar from './SideBar';
+import ClothesSection from './ClothesSection';
 
-function Profile({ handleItemClick, clothingItems, handleAddButton }) {
+function Profile({
+  handleItemClick,
+  clothingItems,
+  handleAddButton,
+  handleEditProfileButton,
+}) {
   return (
     <div className="profile">
-      <SideBar />
+      <SideBar handleEditProfileButton={handleEditProfileButton} />
       <ClothesSection
         handleItemClick={handleItemClick}
         clothingItems={clothingItems}

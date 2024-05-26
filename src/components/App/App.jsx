@@ -29,6 +29,7 @@ import {
 import ProtectedRoute from '../PrptectedRoute/ProtectedRoute';
 import * as auth from '../../utils/auth';
 import { setToken, getToken, removeToken } from '../../utils/token';
+import EditProfileModal from '../EditProfileModal/EditProfileModal';
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
@@ -84,6 +85,10 @@ function App() {
       .catch(console.error);
     console.log('logged in');
   };
+
+  const handleEditProfile = (formData) => {
+    console.log(formData);
+  }
 
   // Managing weather information_________
   const [weatherData, setWeatherData] = useState({
@@ -172,6 +177,9 @@ function App() {
   const handleSignUpButton = () => {
     setModalIsActive('register');
   };
+  const handleEditProfileButton = () => {
+    setModalIsActive('edit-profile');
+  };
 
   // Managing global listeners_________
   useEffect(() => {
@@ -233,6 +241,7 @@ function App() {
                         handleItemClick={handleItemClick}
                         clothingItems={clothingItems}
                         handleAddButton={handleAddButton}
+                        handleEditProfileButton={handleEditProfileButton}
                       />
                     </ProtectedRoute>
                   }
@@ -254,6 +263,12 @@ function App() {
                 onCloseModal={handleActiveModalClose}
                 onLogin={handleLogin}
                 handleSignUpButton={handleSignUpButton}
+              />
+            )}
+            {modalIsActive === 'edit-profile' && (
+              <EditProfileModal
+                onCloseModal={handleActiveModalClose}
+                onEdit={handleEditProfile}
               />
             )}
             {modalIsActive === 'add-garment' && (

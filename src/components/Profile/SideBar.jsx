@@ -4,7 +4,7 @@ import { useContext } from 'react';
 import AppContext from '../../contexts/AppContext';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 
-function SideBar() {
+function SideBar({ handleEditProfileButton }) {
   const navigate = useNavigate();
   const { setIsLoggedIn } = useContext(AppContext);
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
@@ -32,7 +32,7 @@ function SideBar() {
         )}
         <p className="profile__user-name">{currentUser.name}</p>
       </div>
-      <button className="profile__btn">Change profile data</button>
+      <button className="profile__btn" onClick={handleEditProfileButton}>Change profile data</button>
       <button onClick={logOut} className="profile__btn">
         Log out
       </button>
