@@ -1,10 +1,10 @@
 import ItemCard from '../ItemCard/ItemCard';
 import { useContext } from 'react';
-import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import CurrentUserContext from '../../contexts/CurrentUserContext';
 
 function ClothesSection({ handleItemClick, clothingItems, handleAddButton }) {
-  const currentUser = useContext(CurrentUserContext);
-  
+  const { currentUser } = useContext(CurrentUserContext);
+
   return (
     <div>
       <div className="profile__header">

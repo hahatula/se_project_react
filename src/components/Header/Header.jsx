@@ -3,9 +3,8 @@ import './burger.css';
 import { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../assets/logo.svg';
-import avatar from '../../assets/avatar-placeholder.svg';
 import ToggleSwitch from '../ToggleSwitch/ToggleSwitch';
-import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import CurrentUserContext from '../../contexts/CurrentUserContext';
 import AppContext from '../../contexts/AppContext';
 
 function Header({
@@ -15,8 +14,7 @@ function Header({
   handleSignUpButton,
 }) {
   const { isLoggedIn } = useContext(AppContext);
-  const currentUser = useContext(CurrentUserContext);
-  console.log(currentUser);
+  const { currentUser } = useContext(CurrentUserContext);
   const currentDate = new Date().toLocaleString('default', {
     month: 'long',
     day: 'numeric',

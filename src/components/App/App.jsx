@@ -15,7 +15,7 @@ import ItemModal from '../ItemModal/ItemModal';
 import { getWeather, filterWeatherData } from '../../utils/weatherApi';
 import { coordinates, weatherAPIKey } from '../../utils/constants';
 import AppContext from '../../contexts/AppContext';
-import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import CurrentUserContext from '../../contexts/CurrentUserContext';
 import { CurrentTemperatureUnitContext } from '../../contexts/CurrentTemperatureUnitContext';
 import AddItemModal from '../AddItemModal/AddItemModal';
 import RegisterModal from '../RegisterModal/RegisterModal';
@@ -75,7 +75,6 @@ function App() {
           setToken(data.token);
           getUserInfo(data.token).then((user) => {
             setCurrentUser(user);
-            console.log(currentUser);
             setIsLoggedIn(true);
             setModalIsActive(null);
             return currentUser;
@@ -130,8 +129,9 @@ function App() {
       },
       user
     )
-      .then((newItem) => {
-        setClothingItems([newItem.data, ...clothingItems]);
+      .then((item) => {
+        const newItem = { ...item.data, owner: currentUser };
+        setClothingItems([newItem, ...clothingItems]);
         handleActiveModalClose();
       })
       .catch(console.error);
@@ -206,7 +206,7 @@ function App() {
         value={{ currentTemperatureUnit, handleToggleSwitchChange }}
       >
         <AppContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
-          <CurrentUserContext.Provider value={currentUser}>
+          <CurrentUserContext.Provider value={{ currentUser, setCurrentUser }}>
             <div className="app__container">
               <Header
                 weatherData={weatherData}
