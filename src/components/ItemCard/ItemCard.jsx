@@ -13,7 +13,6 @@ function ItemCard({ card, onItemClick, onCardLike }) {
     onItemClick(card);
   };
   const handleLike = (e) => {
-    console.log(isLiked);
     onCardLike(e, card._id, isLiked, setIsLiked);
   };
 

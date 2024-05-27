@@ -54,7 +54,6 @@ function App() {
         // data to state, and navigate them to /ducks.
         setIsLoggedIn(true);
         setCurrentUser(user);
-        console.log(currentUser);
       })
       .catch(console.error);
   }, []);
@@ -68,7 +67,6 @@ function App() {
       .catch(console.error);
   };
   const handleLogin = (formData) => {
-    console.log(`login: ${formData.email}, ${formData.password}`);
     if (!email || !password) {
       return;
     }
@@ -86,7 +84,6 @@ function App() {
         }
       })
       .catch(console.error);
-    console.log('logged in');
   };
 
   const handleEditProfile = (formData) => {
@@ -186,28 +183,23 @@ function App() {
         // the first argument is the card's id
         addCardLike(id, token)
           .then((likedItem) => {
-            console.log(`liked: ${likedItem}`);
-            console.log(clothingItems);
             setClothingItems((prevCards) => {
               return prevCards.map((item) =>
                 item._id === id ? likedItem : item
               );
             });
-            console.log(clothingItems);
             setIsLiked(!isLiked);
           })
-          .catch((err) => console.log(err))
+          .catch((err) => console.err(err))
       : // if not, send a request to remove the user's id from the card's likes array
         removeCardLike(id, token)
           .then((dislikedItem) => {
-            console.log(`disliked ${dislikedItem}`);
-            console.log(clothingItems);
             setClothingItems((prevCards) => {
              return prevCards.map((item) => (item._id === id ? dislikedItem : item));
             });
             setIsLiked(!isLiked);
           })
-          .catch((err) => console.log(err));
+          .catch((err) => console.err(err));
   };
 
   // Managing modal windows_____________
