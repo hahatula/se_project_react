@@ -17,6 +17,7 @@
 
 .item__header {
   display: flex;
+  align-items: center;
   gap: 10px;
   margin-top: 15px;
   z-index: 1;
@@ -32,13 +33,20 @@
 }
 
 .item__like {
+  width: 18px;
+  height: 15px;
   background-color: transparent;
+  background-image: url(../../assets/like-icon-stroke.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: .6;
   border: 0;
   cursor: pointer;
 }
 
 .item__like_active {
-  color: red;
+  background-image: url(../../assets/like-icon-filled.svg);
+  opacity: 1;
 }
 
 .item__img {

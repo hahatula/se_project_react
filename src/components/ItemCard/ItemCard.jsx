@@ -24,9 +24,9 @@ function ItemCard({ card, onItemClick, onCardLike }) {
         {isLoggedIn && (
           <button
             onClick={handleLike}
-            className={`item__like${isLiked ? '_active' : ''}`}
+            className={`item__like ${isLiked ? 'item__like_active' : ''}`}
           >
-            like
+            
           </button>
         )}
       </div>
