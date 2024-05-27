@@ -43,7 +43,6 @@ export const deleteClothes = (id, token) => {
   });
 };
 
-// getContent accepts the token as an argument.
 export const getUserInfo = (token) => {
   // Send a GET request to /users/me
   return fetch(`${BASE_URL}/users/me`, {
@@ -55,6 +54,24 @@ export const getUserInfo = (token) => {
       // formatted value.
       Authorization: `Bearer ${token}`,
     },
+  }).then((res) => {
+    return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
+  });
+};
+
+
+export const editUserInfo = ({ name, imageUrl }, token) => {
+  return fetch(`${BASE_URL}/users/me`, {
+    method: 'PATCH',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      name: name,
+      imageUrl: imageUrl,
+    })
   }).then((res) => {
     return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
   });

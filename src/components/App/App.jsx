@@ -25,6 +25,7 @@ import {
   addClothes,
   deleteClothes,
   getUserInfo,
+  editUserInfo,
 } from '../../utils/api';
 import ProtectedRoute from '../PrptectedRoute/ProtectedRoute';
 import * as auth from '../../utils/auth';
@@ -87,8 +88,25 @@ function App() {
   };
 
   const handleEditProfile = (formData) => {
-    console.log(formData);
-  }
+    const user = getToken();
+    editUserInfo(
+      {
+        name: formData.name,
+        imageUrl: formData.imageUrl,
+      },
+      user
+    )
+      .then((data) => {
+        const { user } = data;
+        setCurrentUser((prevUser) => ({
+          ...prevUser,
+          name: user.name,
+          avatar: user.avatar,
+        }));
+        setModalIsActive(null);
+      })
+      .catch(console.error);
+  };
 
   // Managing weather information_________
   const [weatherData, setWeatherData] = useState({
