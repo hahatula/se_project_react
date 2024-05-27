@@ -30,7 +30,7 @@ function LoginModal({ onCloseModal, onLogin, handleSignUpButton }) {
       <label htmlFor="email" className="form__label">
         Email
         <input
-          type="text"
+          type="email"
           id="email"
           name="email"
           placeholder="Email"

@@ -32,7 +32,7 @@ function RegisterModal({ onCloseModal, onRegister, handleLogInButton }) {
       <label htmlFor="email" className="form__label">
         Email*
         <input
-          type="text"
+          type="email"
           id="email"
           name="email"
           placeholder="Email"
@@ -63,6 +63,7 @@ function RegisterModal({ onCloseModal, onRegister, handleLogInButton }) {
           value={data.name}
           onChange={handleChange}
           className="form__input"
+          minLength={2}
         />
       </label>
       <label htmlFor="avatar" className="form__label">
