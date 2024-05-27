@@ -45,7 +45,7 @@ export const deleteClothes = (id, token) => {
 
 export const getUserInfo = (token) => {
   // Send a GET request to /users/me
-  return fetch(`${BASE_URL}/users/me`, {
+  return request(`${BASE_URL}/users/me`, {
     method: 'GET',
     headers: {
       Accept: 'application/json',
@@ -54,14 +54,11 @@ export const getUserInfo = (token) => {
       // formatted value.
       Authorization: `Bearer ${token}`,
     },
-  }).then((res) => {
-    return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
   });
 };
 
-
 export const editUserInfo = ({ name, imageUrl }, token) => {
-  return fetch(`${BASE_URL}/users/me`, {
+  return request(`${BASE_URL}/users/me`, {
     method: 'PATCH',
     headers: {
       Accept: 'application/json',
@@ -71,8 +68,32 @@ export const editUserInfo = ({ name, imageUrl }, token) => {
     body: JSON.stringify({
       name: name,
       imageUrl: imageUrl,
-    })
-  }).then((res) => {
-    return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
+    }),
+  });
+};
+
+export const addCardLike = (id, token) => {
+  return request(`${BASE_URL}` + `/items/` + `${id}` + `/likes/`, {
+    method: 'PUT',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  }).then((likedItem)=> {
+    return likedItem.data
+  });
+};
+
+export const removeCardLike = (id, token) => {
+  return request(`${BASE_URL}` + `/items/` + `${id}` + `/likes/`, {
+    method: 'DELETE',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  }).then((dislikedItem)=> {
+    return dislikedItem.data
   });
 };

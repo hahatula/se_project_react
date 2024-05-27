@@ -26,6 +26,8 @@ import {
   deleteClothes,
   getUserInfo,
   editUserInfo,
+  addCardLike,
+  removeCardLike,
 } from '../../utils/api';
 import ProtectedRoute from '../PrptectedRoute/ProtectedRoute';
 import * as auth from '../../utils/auth';
@@ -175,6 +177,39 @@ function App() {
       .catch(console.error);
   };
 
+  const handleCardLike = (event, id, isLiked, setIsLiked) => {
+    event.stopPropagation();
+    const token = getToken('jwt');
+    // Check if this card is not currently liked
+    !isLiked
+      ? // if so, send a request to add the user's id to the card's likes array
+        // the first argument is the card's id
+        addCardLike(id, token)
+          .then((likedItem) => {
+            console.log(`liked: ${likedItem}`);
+            console.log(clothingItems);
+            setClothingItems((prevCards) => {
+              return prevCards.map((item) =>
+                item._id === id ? likedItem : item
+              );
+            });
+            console.log(clothingItems);
+            setIsLiked(!isLiked);
+          })
+          .catch((err) => console.log(err))
+      : // if not, send a request to remove the user's id from the card's likes array
+        removeCardLike(id, token)
+          .then((dislikedItem) => {
+            console.log(`disliked ${dislikedItem}`);
+            console.log(clothingItems);
+            setClothingItems((prevCards) => {
+             return prevCards.map((item) => (item._id === id ? dislikedItem : item));
+            });
+            setIsLiked(!isLiked);
+          })
+          .catch((err) => console.log(err));
+  };
+
   // Managing modal windows_____________
   const [modalIsActive, setModalIsActive] = useState(null);
   const [selectedItem, setSelectedItem] = useState({});
@@ -248,6 +283,7 @@ function App() {
                       weatherData={weatherData}
                       handleItemClick={handleItemClick}
                       clothingItems={clothingItems}
+                      onCardLike={handleCardLike}
                     />
                   }
                 />
@@ -260,6 +296,7 @@ function App() {
                         clothingItems={clothingItems}
                         handleAddButton={handleAddButton}
                         handleEditProfileButton={handleEditProfileButton}
+                        onCardLike={handleCardLike}
                       />
                     </ProtectedRoute>
                   }

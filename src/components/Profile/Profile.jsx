@@ -7,6 +7,7 @@ function Profile({
   clothingItems,
   handleAddButton,
   handleEditProfileButton,
+  onCardLike
 }) {
   return (
     <div className="profile">
@@ -15,6 +16,7 @@ function Profile({
         handleItemClick={handleItemClick}
         clothingItems={clothingItems}
         handleAddButton={handleAddButton}
+        onCardLike={onCardLike}
       />
     </div>
   );
