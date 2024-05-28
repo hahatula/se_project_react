@@ -82,7 +82,7 @@ function RegisterModal({ onCloseModal, onRegister, handleLogInButton }) {
         <button className="form__submit" type="submit">
           Sign Up
         </button>
-        <button className="form__alt-option" onClick={handleLogInButton}>
+        <button className="form__alt-option" onClick={handleLogInButton} type='button'>
           or Log In
         </button>
       </div>

@@ -32,8 +32,8 @@ function SideBar({ handleEditProfileButton }) {
         )}
         <p className="profile__user-name">{currentUser.name}</p>
       </div>
-      <button className="profile__btn" onClick={handleEditProfileButton}>Change profile data</button>
-      <button onClick={logOut} className="profile__btn">
+      <button className="profile__btn" onClick={handleEditProfileButton} type='button'>Change profile data</button>
+      <button onClick={logOut} className="profile__btn" type='button'>
         Log out
       </button>
     </div>

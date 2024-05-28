@@ -86,10 +86,10 @@ function Header({
           </>
         ) : (
           <>
-            <button className="header__btn" onClick={handleSignUpButton}>
+            <button className="header__btn" onClick={handleSignUpButton} type='button'>
               Sign Up
             </button>
-            <button className="header__btn" onClick={handleLogInButton}>
+            <button className="header__btn" onClick={handleLogInButton} type='button'>
               Log In
             </button>
           </>

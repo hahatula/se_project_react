@@ -55,7 +55,7 @@ function LoginModal({ onCloseModal, onLogin, handleSignUpButton }) {
         <button className="form__submit" type="submit">
           Log In
         </button>
-        <button className="form__alt-option" onClick={handleSignUpButton}>
+        <button className="form__alt-option" onClick={handleSignUpButton} type='button'>
           or Sign Up
         </button>
       </div>

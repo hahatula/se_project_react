@@ -24,6 +24,7 @@ function ItemCard({ card, onItemClick, onCardLike }) {
           <button
             onClick={handleLike}
             className={`item__like ${isLiked ? 'item__like_active' : ''}`}
+            type='button'
           >
             
           </button>
