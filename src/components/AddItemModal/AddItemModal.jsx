@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import ModalWithForm from '../ModalWithForm/ModalWithForm';
 
-function AddItemModal({ onCloseModal, onAddItem }) {
+function AddItemModal({ onCloseModal, onAddItem, isLoading }) {
   const [data, setData] = useState({
     name: '',
     imageUrl: '',
@@ -97,7 +97,7 @@ function AddItemModal({ onCloseModal, onAddItem }) {
       </fieldset>
       <div className="form__buttons">
         <button className="form__submit" type="submit">
-          Add garment
+          {isLoading ? 'Saving...' : 'Add garment'}
         </button>
       </div>
     </ModalWithForm>

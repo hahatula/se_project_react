@@ -31,6 +31,7 @@ import EditProfileModal from '../EditProfileModal/EditProfileModal';
 function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const jwt = getToken();
@@ -49,17 +50,21 @@ function App() {
   }, []);
 
   const handleRegistration = ({ name, avatarUrl, email, password }) => {
+    setIsLoading(true);
     auth
       .register(name, avatarUrl, email, password)
       .then(() => {
         handleLogin({ email, password });
       })
-      .catch(console.error);
+      .catch(console.error)
+      .finally(() => setIsLoading(false));
   };
+
   const handleLogin = (formData) => {
     if (!email || !password) {
       return;
     }
+    setIsLoading(true);
     auth
       .authorize(formData.email, formData.password)
       .then((data) => {
@@ -68,16 +73,18 @@ function App() {
           getUserInfo(data.token).then((user) => {
             setCurrentUser(user);
             setIsLoggedIn(true);
-            handleActiveModalClose();
             return currentUser;
           });
         }
       })
-      .catch(console.error);
+      .then(() => handleActiveModalClose())
+      .catch(console.error)
+      .finally(() => setIsLoading(false));
   };
 
   const handleEditProfile = (formData) => {
     const user = getToken();
+    setIsLoading(true);
     editUserInfo(
       {
         name: formData.name,
@@ -92,9 +99,10 @@ function App() {
           name: user.name,
           avatar: user.avatar,
         }));
-        handleActiveModalClose();
       })
-      .catch(console.error);
+      .then(() => handleActiveModalClose())
+      .catch(console.error)
+      .finally(() => setIsLoading(false));
   };
 
   // Managing weather information_________
@@ -133,6 +141,7 @@ function App() {
 
   const handleAddItemSubmit = (formData) => {
     const user = getToken();
+    setIsLoading(true);
     addClothes(
       {
         name: formData.name,
@@ -144,13 +153,15 @@ function App() {
       .then((item) => {
         const newItem = { ...item.data, owner: currentUser };
         setClothingItems([newItem, ...clothingItems]);
-        handleActiveModalClose();
       })
-      .catch(console.error);
+      .then(() => handleActiveModalClose())
+      .catch(console.error)
+      .finally(() => setIsLoading(false));
   };
 
   const handleDeleteButton = () => {
     const user = getToken();
+    setIsLoading(true);
     deleteClothes(selectedItem._id, user)
       .then((res) => {
         //delete from the list
@@ -159,9 +170,10 @@ function App() {
             return item !== selectedItem;
           })
         );
-        handleActiveModalClose();
       })
-      .catch(console.error);
+      .then(() => handleActiveModalClose())
+      .catch(console.error)
+      .finally(() => setIsLoading(false));
   };
 
   const handleCardLike = (event, id, isLiked, setIsLiked) => {
@@ -295,6 +307,7 @@ function App() {
                 onCloseModal={handleActiveModalClose}
                 onRegister={handleRegistration}
                 handleLogInButton={handleLogInButton}
+                isLoading={isLoading}
               />
             )}
             {modalIsActive === 'log-in' && (
@@ -302,18 +315,21 @@ function App() {
                 onCloseModal={handleActiveModalClose}
                 onLogin={handleLogin}
                 handleSignUpButton={handleSignUpButton}
+                isLoading={isLoading}
               />
             )}
             {modalIsActive === 'edit-profile' && (
               <EditProfileModal
                 onCloseModal={handleActiveModalClose}
                 onEdit={handleEditProfile}
+                isLoading={isLoading}
               />
             )}
             {modalIsActive === 'add-garment' && (
               <AddItemModal
                 onCloseModal={handleActiveModalClose}
                 onAddItem={handleAddItemSubmit}
+                isLoading={isLoading}
               />
             )}
             {modalIsActive === 'preview' && (
@@ -322,6 +338,7 @@ function App() {
                 card={selectedItem}
                 onClose={handleActiveModalClose}
                 onDelete={handleDeleteButton}
+                isLoading={isLoading}
               />
             )}
           </CurrentUserContext.Provider>

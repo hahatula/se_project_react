@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import ModalWithForm from '../ModalWithForm/ModalWithForm';
 
-function RegisterModal({ onCloseModal, onRegister, handleLogInButton }) {
+function RegisterModal({ onCloseModal, onRegister, handleLogInButton, isLoading }) {
   const [data, setData] = useState({
     name: '',
     avatarUrl: '',
@@ -80,7 +80,7 @@ function RegisterModal({ onCloseModal, onRegister, handleLogInButton }) {
       </label>
       <div className="form__buttons">
         <button className="form__submit" type="submit">
-          Sign Up
+          {isLoading? 'Signing Up...' : 'Sign Up'}
         </button>
         <button
           className="form__alt-option"

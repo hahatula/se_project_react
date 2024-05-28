@@ -2,7 +2,7 @@ import './ItemModal.css';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 import { useContext } from 'react';
 
-function ItemModal({ name, card, onClose, onDelete }) {
+function ItemModal({ name, card, onClose, onDelete, isLoading }) {
   const { currentUser } = useContext(CurrentUserContext);
 
   const isOwn = card.owner._id === currentUser._id;
@@ -31,7 +31,7 @@ function ItemModal({ name, card, onClose, onDelete }) {
               type="button"
               className="modal__delete-btn"
             >
-              Delete item
+              {isLoading ? 'Deleting...' : 'Delete item'}
             </button>
           )}
         </div>

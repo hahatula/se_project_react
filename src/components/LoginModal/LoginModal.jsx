@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import ModalWithForm from '../ModalWithForm/ModalWithForm';
 
-function LoginModal({ onCloseModal, onLogin, handleSignUpButton }) {
+function LoginModal({ onCloseModal, onLogin, handleSignUpButton, isLoading }) {
   const [data, setData] = useState({
     email: '',
     password: '',
@@ -53,7 +53,7 @@ function LoginModal({ onCloseModal, onLogin, handleSignUpButton }) {
       </label>
       <div className="form__buttons">
         <button className="form__submit" type="submit">
-          Log In
+          {isLoading ? 'Logging In...' : 'Log In'}
         </button>
         <button
           className="form__alt-option"

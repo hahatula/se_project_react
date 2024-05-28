@@ -2,7 +2,7 @@ import { useState, useContext } from 'react';
 import ModalWithForm from '../ModalWithForm/ModalWithForm';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 
-function EditProfileModal({ onCloseModal, onEdit }) {
+function EditProfileModal({ onCloseModal, onEdit, isLoading }) {
   const { currentUser } = useContext(CurrentUserContext);
   const [data, setData] = useState({
     name: `${currentUser.name}`,
@@ -56,7 +56,7 @@ function EditProfileModal({ onCloseModal, onEdit }) {
       </label>
       <div className="form__buttons">
         <button className="form__submit" type="submit">
-          Save changes
+          {isLoading ? 'Saving...' : 'Save changes'}
         </button>
       </div>
     </ModalWithForm>
