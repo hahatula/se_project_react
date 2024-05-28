@@ -30,9 +30,20 @@ import EditProfileModal from '../EditProfileModal/EditProfileModal';
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
+  const [clothingItems, setClothingItems] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState('F');
+  const [weatherData, setWeatherData] = useState({
+    type: ' ',
+    temperature: { F: 999, C: 999 },
+    city: ' ',
+  });
+  const [modalIsActive, setModalIsActive] = useState(null);
+  const [selectedItem, setSelectedItem] = useState({});
 
+  // GETTING INFO ON FIRST LOAD
+  // dependencies arrays are empty to turn on these useEffects only once on mount
   useEffect(() => {
     const jwt = getToken();
 
@@ -49,77 +60,6 @@ function App() {
       .catch(console.error);
   }, []);
 
-  const handleRegistration = ({ name, avatarUrl, email, password }) => {
-    setIsLoading(true);
-    auth
-      .register(name, avatarUrl, email, password)
-      .then(() => {
-        handleLogin({ email, password });
-      })
-      .catch(console.error)
-      .finally(() => setIsLoading(false));
-  };
-
-  const handleLogin = (formData) => {
-    if (!email || !password) {
-      return;
-    }
-    setIsLoading(true);
-    auth
-      .authorize(formData.email, formData.password)
-      .then((data) => {
-        if (data.token) {
-          setToken(data.token);
-          getUserInfo(data.token).then((user) => {
-            setCurrentUser(user);
-            setIsLoggedIn(true);
-            return currentUser;
-          });
-        }
-      })
-      .then(() => handleActiveModalClose())
-      .catch(console.error)
-      .finally(() => setIsLoading(false));
-  };
-
-  const handleEditProfile = (formData) => {
-    const user = getToken();
-    setIsLoading(true);
-    editUserInfo(
-      {
-        name: formData.name,
-        imageUrl: formData.imageUrl,
-      },
-      user
-    )
-      .then((data) => {
-        const { user } = data;
-        setCurrentUser((prevUser) => ({
-          ...prevUser,
-          name: user.name,
-          avatar: user.avatar,
-        }));
-      })
-      .then(() => handleActiveModalClose())
-      .catch(console.error)
-      .finally(() => setIsLoading(false));
-  };
-
-  // Managing weather information_________
-  const [weatherData, setWeatherData] = useState({
-    type: ' ',
-    temperature: { F: 999, C: 999 },
-    city: ' ',
-  });
-
-  const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState('F');
-  const handleToggleSwitchChange = () => {
-    currentTemperatureUnit === 'F'
-      ? setCurrentTemperatureUnit('C')
-      : setCurrentTemperatureUnit('F');
-  };
-
-  //get weather on load (once)
   useEffect(() => {
     getWeather(coordinates, weatherAPIKey)
       .then((data) => {
@@ -127,10 +67,8 @@ function App() {
         setWeatherData(filteredData);
       })
       .catch(console.error);
-  }, []); // dependencies array is an empty array to turn on this useEffect only once on mount
+  }, []);
 
-  //Managing the list of clothes
-  const [clothingItems, setClothingItems] = useState([]);
   useEffect(() => {
     getClothes()
       .then((clothes) => {
@@ -139,41 +77,129 @@ function App() {
       .catch(console.error);
   }, []);
 
-  const handleAddItemSubmit = (formData) => {
-    const user = getToken();
+  // MANAGING GLOBAL LISTENERS
+  useEffect(() => {
+    if (!modalIsActive) return; // stop the effect not to add the listener if there is no active modal
+
+    // define the handle functions inside useEffect (not to lose the reference on rerendering) and attach listeners to the doc
+    const handleEscClose = (e) => {
+      if (e.key === 'Escape') {
+        handleActiveModalClose();
+      }
+    };
+    document.addEventListener('keydown', handleEscClose);
+
+    const handleOverlayClick = (event) => {
+      if (event.target.classList.contains('modal')) {
+        handleActiveModalClose();
+      }
+    };
+    document.addEventListener('click', handleOverlayClick);
+
+    // clean up functions for removing the listeners
+    // Explanation: React will store this function (which is in "return") and call it right before it removes the component from the UI or before re-running the effect due to changes in its dependencies.
+    return () => {
+      document.removeEventListener('keydown', handleEscClose);
+      document.removeEventListener('click', handleOverlayClick);
+    };
+  }, [modalIsActive]); // fill dependencies array to watch modalIsActive state
+
+  // HANDLERS
+  const handleToggleSwitchChange = () => {
+    currentTemperatureUnit === 'F'
+      ? setCurrentTemperatureUnit('C')
+      : setCurrentTemperatureUnit('F');
+  };
+
+  const handleSubmit = (request) => {
+    // can use for all form submits
     setIsLoading(true);
-    addClothes(
-      {
-        name: formData.name,
-        imageUrl: formData.imageUrl,
-        weather: formData.weather,
-      },
-      user
-    )
-      .then((item) => {
-        const newItem = { ...item.data, owner: currentUser };
-        setClothingItems([newItem, ...clothingItems]);
-      })
+    request()
       .then(() => handleActiveModalClose())
       .catch(console.error)
       .finally(() => setIsLoading(false));
   };
 
+  const handleRegistration = ({ name, avatarUrl, email, password }) => {
+    const makeRequest = () => {
+      auth.register(name, avatarUrl, email, password).then(() => {
+        handleLogin({ email, password });
+      });
+    };
+    handleSubmit(makeRequest);
+  };
+
+  const handleLogin = (formData) => {
+    if (!email || !password) {
+      return;
+    }
+    const makeRequest = () => {
+      return auth.authorize(formData.email, formData.password).then((data) => {
+        if (data.token) {
+          setToken(data.token);
+          getUserInfo(data.token).then((user) => {
+            setCurrentUser(user);
+            setIsLoggedIn(true);
+            return currentUser;
+          });
+        }
+      });
+    };
+    handleSubmit(makeRequest);
+  };
+
+  const handleEditProfile = (formData) => {
+    const makeRequest = () => {
+      const user = getToken();
+      return editUserInfo(
+        {
+          name: formData.name,
+          imageUrl: formData.imageUrl,
+        },
+        user
+      ).then((data) => {
+        const { user } = data;
+        setCurrentUser((prevUser) => ({
+          ...prevUser,
+          name: user.name,
+          avatar: user.avatar,
+        }));
+      });
+    };
+    handleSubmit(makeRequest);
+  };
+
+  const handleAddItemSubmit = (formData) => {
+    const makeRequest = () => {
+      const user = getToken();
+      return addClothes(
+        {
+          name: formData.name,
+          imageUrl: formData.imageUrl,
+          weather: formData.weather,
+        },
+        user
+      ).then((item) => {
+        const newItem = { ...item.data, owner: currentUser };
+        setClothingItems([newItem, ...clothingItems]);
+      });
+    };
+    handleSubmit(makeRequest);
+  };
+
   const handleDeleteButton = () => {
-    const user = getToken();
-    setIsLoading(true);
-    deleteClothes(selectedItem._id, user)
-      .then((res) => {
+    const makeRequest = () => {
+      const user = getToken();
+      return deleteClothes(selectedItem._id, user).then((res) => {
         //delete from the list
         setClothingItems(
           clothingItems.filter((item) => {
             return item !== selectedItem;
           })
         );
-      })
-      .then(() => handleActiveModalClose())
-      .catch(console.error)
-      .finally(() => setIsLoading(false));
+      });
+    };
+    handleSubmit(makeRequest);
   };
 
   const handleCardLike = (event, id, isLiked, setIsLiked) => {
@@ -207,9 +233,6 @@ function App() {
   };
 
   // Managing modal windows_____________
-  const [modalIsActive, setModalIsActive] = useState(null);
-  const [selectedItem, setSelectedItem] = useState({});
-
   const handleActiveModalClose = () => {
     setModalIsActive(null);
   };
@@ -229,33 +252,6 @@ function App() {
   const handleEditProfileButton = () => {
     setModalIsActive('edit-profile');
   };
-
-  // Managing global listeners_________
-  useEffect(() => {
-    if (!modalIsActive) return; // stop the effect not to add the listener if there is no active modal
-
-    // define the handle functions inside useEffect (not to lose the reference on rerendering) and attach listeners to the doc
-    const handleEscClose = (e) => {
-      if (e.key === 'Escape') {
-        handleActiveModalClose();
-      }
-    };
-    document.addEventListener('keydown', handleEscClose);
-
-    const handleOverlayClick = (event) => {
-      if (event.target.classList.contains('modal')) {
-        handleActiveModalClose();
-      }
-    };
-    document.addEventListener('click', handleOverlayClick);
-
-    // clean up functions for removing the listeners
-    // Explanation: React will store this function (which is in "return") and call it right before it removes the component from the UI or before re-running the effect due to changes in its dependencies.
-    return () => {
-      document.removeEventListener('keydown', handleEscClose);
-      document.removeEventListener('click', handleOverlayClick);
-    };
-  }, [modalIsActive]); // fill dependencies array to watch modalIsActive state
 
   return (
     <div className="app">
