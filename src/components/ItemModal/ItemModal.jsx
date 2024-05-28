@@ -1,6 +1,7 @@
 import './ItemModal.css';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 import { useContext } from 'react';
+import { Modal } from '../Modal/Modal';
 
 function ItemModal({ name, card, onClose, onDelete, isLoading }) {
   const { currentUser } = useContext(CurrentUserContext);
@@ -12,9 +13,8 @@ function ItemModal({ name, card, onClose, onDelete, isLoading }) {
   };
 
   return (
-    <div className={`modal modal_type_${name}`}>
+    <Modal name={name} onClose={onClose}>
       <div className="modal__item-container">
-        <button onClick={onClose} className="modal__close" type="button" />
         <img
           className="modal__preiew-image"
           src={card.imageUrl}
@@ -36,7 +36,7 @@ function ItemModal({ name, card, onClose, onDelete, isLoading }) {
           )}
         </div>
       </div>
-    </div>
+    </Modal>
   );
 }
 

@@ -1,17 +1,14 @@
 import './ModalWithForm.css';
-import './Form.css';
+import { Modal } from '../Modal/Modal';
+import Form from '../Form/Form';
 
 function ModalWithForm({ children, title, onClose, name, onSubmit }) {
   return (
-    <div className={`modal modal_type_${name}`}>
+    <Modal name={name} onClose={onClose}>
       <div className="modal__form-container">
-        <button onClick={onClose} className="modal__close" type="button" />
-        <form onSubmit={onSubmit} className="modal__form form">
-          <h2 className="form__title">{title}</h2>
-          {children}
-        </form>
+        <Form title={title} onSubmit={onSubmit}>{children}</Form>
       </div>
-    </div>
+    </Modal>
   );
 }
 

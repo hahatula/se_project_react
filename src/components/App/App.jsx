@@ -77,33 +77,6 @@ function App() {
       .catch(console.error);
   }, []);
 
-  // MANAGING GLOBAL LISTENERS
-  useEffect(() => {
-    if (!modalIsActive) return; // stop the effect not to add the listener if there is no active modal
-
-    // define the handle functions inside useEffect (not to lose the reference on rerendering) and attach listeners to the doc
-    const handleEscClose = (e) => {
-      if (e.key === 'Escape') {
-        handleActiveModalClose();
-      }
-    };
-    document.addEventListener('keydown', handleEscClose);
-
-    const handleOverlayClick = (event) => {
-      if (event.target.classList.contains('modal')) {
-        handleActiveModalClose();
-      }
-    };
-    document.addEventListener('click', handleOverlayClick);
-
-    // clean up functions for removing the listeners
-    // Explanation: React will store this function (which is in "return") and call it right before it removes the component from the UI or before re-running the effect due to changes in its dependencies.
-    return () => {
-      document.removeEventListener('keydown', handleEscClose);
-      document.removeEventListener('click', handleOverlayClick);
-    };
-  }, [modalIsActive]); // fill dependencies array to watch modalIsActive state
-
   // HANDLERS
   const handleToggleSwitchChange = () => {
     currentTemperatureUnit === 'F'

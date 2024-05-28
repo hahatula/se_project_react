@@ -41,6 +41,10 @@
   text-align: left;
 }
 
+.profile__btn:focus-visible {
+  outline: none;
+}
+
 .profile__header {
   margin: 16px 0;
   font-size: 20px;
