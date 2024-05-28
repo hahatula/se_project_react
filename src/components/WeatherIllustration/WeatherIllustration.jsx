@@ -1,22 +1,22 @@
-import "./WeatherIllustration.css";
-import cloudImg from "../../assets/cloud-img.svg";
-import rainImg from "../../assets/rain.svg";
-import snowImg from "../../assets/snow.svg";
-import thunderImg from "../../assets/thunder.svg";
+import './WeatherIllustration.css';
+import cloudImg from '../../assets/cloud-img.svg';
+import rainImg from '../../assets/rain.svg';
+import snowImg from '../../assets/snow.svg';
+import thunderImg from '../../assets/thunder.svg';
 
 function WeatherIllustration({ weatherData }) {
-  const showLuminary = ["few clouds", "clear sky"];
-  const showCloud = ["few clouds", "scattered clouds", "broken clouds"];
-  const showPrecipitation = ["shower rain", "rain", "thunderstorm", "snow"];
+  const showLuminary = ['few clouds', 'clear sky'];
+  const showCloud = ['few clouds', 'scattered clouds', 'broken clouds'];
+  const showPrecipitation = ['shower rain', 'rain', 'thunderstorm', 'snow'];
 
   return (
     <>
       {showLuminary.includes(weatherData.description) && (
         <span
           className={`luminary ${
-            weatherData.timeOfTheDay === "night"
-              ? "luminary_type_moon"
-              : "luminary_type_sun"
+            weatherData.timeOfTheDay === 'night'
+              ? 'luminary_type_moon'
+              : 'luminary_type_sun'
           }`}
         ></span>
       )}
@@ -29,7 +29,7 @@ function WeatherIllustration({ weatherData }) {
       )}
       {showPrecipitation.includes(weatherData.description) && (
         <>
-          {weatherData.description === "thunderstorm" && (
+          {weatherData.description === 'thunderstorm' && (
             <img
               className={`rain-shower`}
               src={thunderImg}
@@ -38,19 +38,19 @@ function WeatherIllustration({ weatherData }) {
           )}
           <img
             className={`high-cloud cloud_${
-              weatherData.description === "snow" ? "snowy" : "rainy"
+              weatherData.description === 'snow' ? 'snowy' : 'rainy'
             }-${weatherData.timeOfTheDay}`}
             src={cloudImg}
             alt="Cloud illustartion"
           />
-          {weatherData.description === "snow" ? (
+          {weatherData.description === 'snow' ? (
             <img className={`snow`} src={snowImg} alt="Snow illustartion" />
           ) : (
             <img className={`rain`} src={rainImg} alt="Rain illustartion" />
           )}
         </>
       )}
-      {weatherData.description === "mist" && (
+      {weatherData.description === 'mist' && (
         <>
           <img
             className={`low-cloud-mist cloud_${weatherData.timeOfTheDay}-mist`}

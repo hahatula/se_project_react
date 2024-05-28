@@ -1,12 +1,14 @@
-import "./ToggleSwitch.css";
-import { useContext } from "react";
-import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
+import './ToggleSwitch.css';
+import { useContext } from 'react';
+import { CurrentTemperatureUnitContext } from '../../contexts/CurrentTemperatureUnitContext';
 
 function ToggleSwitch() {
-    const { handleToggleSwitchChange, currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
-    const temperatureToggle = handleToggleSwitchChange;
-    const temperatureUnit = currentTemperatureUnit;
-    
+  const { handleToggleSwitchChange, currentTemperatureUnit } = useContext(
+    CurrentTemperatureUnitContext
+  );
+  const temperatureToggle = handleToggleSwitchChange;
+  const temperatureUnit = currentTemperatureUnit;
+
   return (
     <div className="toggle">
       <input
@@ -14,10 +16,26 @@ function ToggleSwitch() {
         onChange={temperatureToggle}
         className="toggle__checkbox"
       />
-      <span className={`toggle__button ${temperatureUnit === "F" ? "toggle__button_f" : "toggle__button_c"}`}></span>
+      <span
+        className={`toggle__button ${
+          temperatureUnit === 'F' ? 'toggle__button_f' : 'toggle__button_c'
+        }`}
+      ></span>
       <div className="toggle__values">
-        <div className={`toggle__value ${temperatureUnit === "F" ? "toggle__value_checked" : ""}`}>F</div>
-        <div className={`toggle__value ${temperatureUnit === "C" ? "toggle__value_checked" : ""}`}>C</div>
+        <div
+          className={`toggle__value ${
+            temperatureUnit === 'F' ? 'toggle__value_checked' : ''
+          }`}
+        >
+          F
+        </div>
+        <div
+          className={`toggle__value ${
+            temperatureUnit === 'C' ? 'toggle__value_checked' : ''
+          }`}
+        >
+          C
+        </div>
       </div>
     </div>
   );

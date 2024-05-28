@@ -1,4 +1,4 @@
-import { checkResponse, request } from "./api";
+import { request } from './api';
 
 export const getWeather = ({ latitude, longitude }, APIkey) => {
   return request(
@@ -23,16 +23,16 @@ export const filterWeatherData = (data) => {
 
 const weatherType = (temperature) => {
   if (temperature > 85) {
-    return "hot";
+    return 'hot';
   } else if (temperature >= 66 && temperature <= 85) {
-    return "warm";
+    return 'warm';
   } else if (temperature < 66) {
-    return "cold";
+    return 'cold';
   }
 };
 
 const timeOfTheDay = (sunrise, sunset) => {
   return sunrise < Date.now() / 1000 && Date.now() / 1000 <= sunset
-    ? "day"
-    : "night";
+    ? 'day'
+    : 'night';
 };

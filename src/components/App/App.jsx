@@ -1,11 +1,5 @@
 import { useState, useEffect } from 'react';
-import {
-  Routes,
-  Route,
-  Navigate,
-  useNavigate,
-  useLocation,
-} from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import './App.css';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
@@ -31,15 +25,12 @@ import {
 } from '../../utils/api';
 import ProtectedRoute from '../PrptectedRoute/ProtectedRoute';
 import * as auth from '../../utils/auth';
-import { setToken, getToken, removeToken } from '../../utils/token';
+import { setToken, getToken } from '../../utils/token';
 import EditProfileModal from '../EditProfileModal/EditProfileModal';
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const navigate = useNavigate();
-
-  const location = useLocation();
 
   useEffect(() => {
     const jwt = getToken();
@@ -50,8 +41,7 @@ function App() {
 
     getUserInfo(jwt)
       .then((user) => {
-        // If the response is successful, log the user in, save their
-        // data to state, and navigate them to /ducks.
+        // If the response is successful, log the user in and save their data to state
         setIsLoggedIn(true);
         setCurrentUser(user);
       })
@@ -78,7 +68,7 @@ function App() {
           getUserInfo(data.token).then((user) => {
             setCurrentUser(user);
             setIsLoggedIn(true);
-            setModalIsActive(null);
+            handleActiveModalClose();
             return currentUser;
           });
         }
@@ -102,7 +92,7 @@ function App() {
           name: user.name,
           avatar: user.avatar,
         }));
-        setModalIsActive(null);
+        handleActiveModalClose();
       })
       .catch(console.error);
   };
@@ -195,7 +185,9 @@ function App() {
         removeCardLike(id, token)
           .then((dislikedItem) => {
             setClothingItems((prevCards) => {
-             return prevCards.map((item) => (item._id === id ? dislikedItem : item));
+              return prevCards.map((item) =>
+                item._id === id ? dislikedItem : item
+              );
             });
             setIsLiked(!isLiked);
           })

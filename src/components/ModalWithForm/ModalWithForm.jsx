@@ -1,14 +1,7 @@
 import './ModalWithForm.css';
 import './Form.css';
-import { Link } from 'react-router-dom';
 
-function ModalWithForm({
-  children,
-  title,
-  onClose,
-  name,
-  onSubmit,
-}) {
+function ModalWithForm({ children, title, onClose, name, onSubmit }) {
   return (
     <div className={`modal modal_type_${name}`}>
       <div className="modal__form-container">

@@ -80,8 +80,8 @@ export const addCardLike = (id, token) => {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
-  }).then((likedItem)=> {
-    return likedItem.data
+  }).then((likedItem) => {
+    return likedItem.data;
   });
 };
 
@@ -93,7 +93,7 @@ export const removeCardLike = (id, token) => {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
-  }).then((dislikedItem)=> {
-    return dislikedItem.data
+  }).then((dislikedItem) => {
+    return dislikedItem.data;
   });
 };

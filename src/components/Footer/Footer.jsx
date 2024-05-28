@@ -1,7 +1,7 @@
-import "./Footer.css";
+import './Footer.css';
 
 function Footer() {
-  const author = "Olga Golubev";
+  const author = 'Olga Golubev';
   const dateCreated = new Date().getFullYear();
   return (
     <footer className="footer">

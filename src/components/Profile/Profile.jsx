@@ -7,7 +7,7 @@ function Profile({
   clothingItems,
   handleAddButton,
   handleEditProfileButton,
-  onCardLike
+  onCardLike,
 }) {
   return (
     <div className="profile">
