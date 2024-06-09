@@ -51,6 +51,8 @@ function RegisterModal({ onCloseModal, onRegister, handleLogInButton, isLoading 
           value={data.password}
           onChange={handleChange}
           className="form__input"
+          pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"
+          title="Please include at least 1 uppercase character, 1 lowercase character, and 1 number."
         />
       </label>
       <label htmlFor="name" className="form__label">

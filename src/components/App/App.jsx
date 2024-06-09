@@ -95,7 +95,7 @@ function App() {
 
   const handleRegistration = ({ name, avatarUrl, email, password }) => {
     const makeRequest = () => {
-      auth.register(name, avatarUrl, email, password).then(() => {
+      return auth.register(name, avatarUrl, email, password).then(() => {
         handleLogin({ email, password });
       });
     };
