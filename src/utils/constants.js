@@ -5,5 +5,5 @@ export const coordinates = {
 };
 
 export const BASE_URL = process.env.NODE_ENV === "production" 
-? "https://wtwr.xyz"
+? "https://api.wtwr.xyz"
 : "http://localhost:3001";
