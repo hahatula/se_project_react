@@ -127,7 +127,7 @@ function App() {
       return editUserInfo(
         {
           name: formData.name,
-          imageUrl: formData.imageUrl,
+          avatar: formData.avatarUrl,
         },
         user
       ).then((data) => {
