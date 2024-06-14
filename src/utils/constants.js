@@ -1,7 +1,8 @@
 export const weatherAPIKey = 'd3b816af8d229be6132f283d0994ef3f';
-export const coordinates = {
-  latitude: '32.05019466821797',
-  longitude: '34.82419831844607',
+export const openCageGeocodingAPIKey = 'b0216de4d299456b8a04b61f9ad47c1f';
+export const defaultCoordinates = {
+  lat: '32.0852997',
+  lng: '34.7818064',
 };
 
 export const BASE_URL = process.env.NODE_ENV === "production" 

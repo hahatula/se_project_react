@@ -7,7 +7,12 @@ import Profile from '../Profile/Profile';
 import Footer from '../Footer/Footer';
 import ItemModal from '../ItemModal/ItemModal';
 import { getWeather, filterWeatherData } from '../../utils/weatherApi';
-import { coordinates, weatherAPIKey } from '../../utils/constants';
+import { getCoordinates } from '../../utils/geocodingApi';
+import {
+  defaultCoordinates,
+  weatherAPIKey,
+  openCageGeocodingAPIKey,
+} from '../../utils/constants';
 import AppContext from '../../contexts/AppContext';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 import { CurrentTemperatureUnitContext } from '../../contexts/CurrentTemperatureUnitContext';
@@ -41,6 +46,7 @@ function App() {
   });
   const [modalIsActive, setModalIsActive] = useState(null);
   const [selectedItem, setSelectedItem] = useState({});
+  const [coordinates, setCoordinates] = useState(defaultCoordinates);
 
   // GETTING INFO ON FIRST LOAD
   // dependencies arrays are empty to turn on these useEffects only once on mount
@@ -61,13 +67,25 @@ function App() {
   }, []);
 
   useEffect(() => {
+    getCoordinates('Самарканд', openCageGeocodingAPIKey)
+      .then((data) => {
+        console.log(data);
+        if (data.results[0]) {
+          setCoordinates(data.results[0].geometry);
+        }
+      })
+      .catch(console.error);
+  }, []);
+
+  useEffect(() => {
+    console.log(coordinates);
     getWeather(coordinates, weatherAPIKey)
       .then((data) => {
         const filteredData = filterWeatherData(data);
         setWeatherData(filteredData);
       })
       .catch(console.error);
-  }, []);
+  }, [coordinates]);
 
   useEffect(() => {
     getClothes()
