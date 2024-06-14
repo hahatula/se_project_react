@@ -38,7 +38,7 @@ function Header({
         </Link>
 
         <p className="header__data-and-geo">
-          {currentDate}, {weatherData.city}
+          {currentDate}, {isLoggedIn ? currentUser.city : 'Tel Aviv'}
         </p>
       </div>
       <div

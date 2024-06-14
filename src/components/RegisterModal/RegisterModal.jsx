@@ -1,12 +1,18 @@
 import { useState } from 'react';
 import ModalWithForm from '../ModalWithForm/ModalWithForm';
 
-function RegisterModal({ onCloseModal, onRegister, handleLogInButton, isLoading }) {
+function RegisterModal({
+  onCloseModal,
+  onRegister,
+  handleLogInButton,
+  isLoading,
+}) {
   const [data, setData] = useState({
     name: '',
     avatarUrl: '',
     email: '',
     password: '',
+    city: '',
   });
 
   const handleChange = (e) => {
@@ -81,9 +87,22 @@ function RegisterModal({ onCloseModal, onRegister, handleLogInButton, isLoading 
           className="form__input"
         />
       </label>
+      <label htmlFor="city" className="form__label">
+        City*
+        <input
+          type="text"
+          id="city"
+          name="city"
+          placeholder="City"
+          value={data.city}
+          onChange={handleChange}
+          className="form__input"
+          minLength={2}
+        />
+      </label>
       <div className="form__buttons">
         <button className="form__submit" type="submit">
-          {isLoading? 'Signing Up...' : 'Sign Up'}
+          {isLoading ? 'Signing Up...' : 'Sign Up'}
         </button>
         <button
           className="form__alt-option"

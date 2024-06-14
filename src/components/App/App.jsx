@@ -67,18 +67,19 @@ function App() {
   }, []);
 
   useEffect(() => {
-    getCoordinates('Самарканд', openCageGeocodingAPIKey)
+    const city = isLoggedIn ? currentUser.city : 'Tel Aviv';
+    getCoordinates(city, openCageGeocodingAPIKey)
       .then((data) => {
+        // TODO add opportunity to choose the correct location
         console.log(data);
         if (data.results[0]) {
           setCoordinates(data.results[0].geometry);
         }
       })
       .catch(console.error);
-  }, []);
+  }, [currentUser]);
 
   useEffect(() => {
-    console.log(coordinates);
     getWeather(coordinates, weatherAPIKey)
       .then((data) => {
         const filteredData = filterWeatherData(data);
@@ -111,9 +112,9 @@ function App() {
       .finally(() => setIsLoading(false));
   };
 
-  const handleRegistration = ({ name, avatarUrl, email, password }) => {
+  const handleRegistration = ({ name, avatarUrl, email, password, city }) => {
     const makeRequest = () => {
-      return auth.register(name, avatarUrl, email, password).then(() => {
+      return auth.register(name, avatarUrl, email, password, city).then(() => {
         handleLogin({ email, password });
       });
     };
@@ -146,6 +147,7 @@ function App() {
         {
           name: formData.name,
           avatar: formData.avatarUrl,
+          city: formData.city,
         },
         user
       ).then((data) => {
@@ -154,6 +156,7 @@ function App() {
           ...prevUser,
           name: user.name,
           avatar: user.avatar,
+          city: user.city,
         }));
       });
     };

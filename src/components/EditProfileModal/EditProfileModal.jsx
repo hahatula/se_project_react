@@ -7,6 +7,7 @@ function EditProfileModal({ onCloseModal, onEdit, isLoading }) {
   const [data, setData] = useState({
     name: `${currentUser.name}`,
     avatarUrl: `${currentUser.avatar}`,
+    city: `${currentUser.city}`,
   });
 
   const handleChange = (e) => {
@@ -53,6 +54,19 @@ function EditProfileModal({ onCloseModal, onEdit, isLoading }) {
           value={data.avatarUrl}
           onChange={handleChange}
           className="form__input"
+        />
+      </label>
+      <label htmlFor="city" className="form__label">
+        City*
+        <input
+          type="text"
+          id="city"
+          name="city"
+          placeholder="City"
+          value={data.city}
+          onChange={handleChange}
+          className="form__input"
+          minLength={2}
         />
       </label>
       <div className="form__buttons">
