@@ -40,6 +40,7 @@ function EditProfileModal({ onCloseModal, onEdit, isLoading }) {
           onChange={handleChange}
           className="form__input"
           minLength={2}
+          maxLength={30}
         />
       </label>
       <label htmlFor="avatar" className="form__label">

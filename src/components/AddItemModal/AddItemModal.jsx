@@ -39,6 +39,7 @@ function AddItemModal({ onCloseModal, onAddItem, isLoading }) {
           onChange={handleChange}
           className="form__input"
           minLength={2}
+          maxLength={30}
         />
       </label>
       <label htmlFor="image" className="form__label">
