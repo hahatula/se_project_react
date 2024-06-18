@@ -1,9 +1,13 @@
 .footer {
-    grid-area: footer;
-    display: flex;
-    align-items: center;
-    align-self:flex-end;
-    justify-content: space-between;
-    font-size: 20px;
-    margin-top: 28px;
-  }
+  grid-area: footer;
+  display: flex;
+  align-items: center;
+  align-self: flex-end;
+  justify-content: space-between;
+  font-size: 20px;
+  margin-top: 28px;
+}
+
+.footer__link {
+  color: #000;
+}

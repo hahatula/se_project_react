@@ -15,7 +15,7 @@ function Header({
 }) {
   const { isLoggedIn } = useContext(AppContext);
   const { currentUser } = useContext(CurrentUserContext);
-  const currentDate = new Date().toLocaleString('default', {
+  const currentDate = new Date().toLocaleString('en-US', {
     month: 'long',
     day: 'numeric',
   });

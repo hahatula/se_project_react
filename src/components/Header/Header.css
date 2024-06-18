@@ -81,6 +81,11 @@
     gap: 34px;
     max-width: 100px;
   }
+
+  .header__data-and-geo {
+    width: 100vw;
+    text-wrap: wrap;
+  }
 }
 
 @media screen and (max-width: 640px) {

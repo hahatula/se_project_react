@@ -35,7 +35,7 @@
 }
 
 .form__radio-label:invalid {
-  color: #FF4D00;
+  color: #ff4d00;
 }
 
 .form__radio-label {
@@ -55,10 +55,12 @@
   border: none;
   border-bottom: 1px solid;
   font-weight: 700;
+  text-overflow: ellipsis;
 }
+
 .form__label:has(.form__input:invalid),
 .form__input:invalid {
-  color: #FF4D00;
+  color: #ff4d00;
 }
 
 .form__input:focus-visible {
