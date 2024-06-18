@@ -16,5 +16,5 @@ Mock API
 
 ![Cover image](src/assets/wtwr.jpg)
 
-## Link
-The backend repo: https://github.com/hahatula/se_project_express
+## The backend repo:
+https://github.com/hahatula/se_project_express
