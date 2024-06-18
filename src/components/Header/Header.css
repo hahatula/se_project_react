@@ -83,12 +83,16 @@
   }
 
   .header__data-and-geo {
-    width: 100vw;
+    width: calc(100vw - 80px);
     text-wrap: wrap;
   }
 }
 
 @media screen and (max-width: 640px) {
+  .header__data-and-geo {
+    width: calc(100vw - 32px);
+  }
+
   .header__user-tools {
     background-color: #fff;
     border-radius: 10px;
