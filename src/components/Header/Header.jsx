@@ -8,10 +8,10 @@ import CurrentUserContext from '../../contexts/CurrentUserContext';
 import AppContext from '../../contexts/AppContext';
 
 function Header({
-  weatherData,
   handleAddButton,
   handleLogInButton,
   handleSignUpButton,
+  handleEditProfileButton,
 }) {
   const { isLoggedIn } = useContext(AppContext);
   const { currentUser } = useContext(CurrentUserContext);
@@ -36,9 +36,19 @@ function Header({
         <Link to="/" className="header__link">
           <img className="header__logo" src={logo} alt="Logo" />
         </Link>
-
         <p className="header__data-and-geo">
-          {currentDate}, {isLoggedIn ? currentUser.city : 'Tel Aviv'}
+          {currentDate},{' '}
+          {isLoggedIn ? (
+            <button
+              className="profile__btn"
+              onClick={handleEditProfileButton}
+              type="button"
+            >
+              {currentUser.city}
+            </button>
+          ) : (
+            'Tel Aviv'
+          )}
         </p>
       </div>
       <div

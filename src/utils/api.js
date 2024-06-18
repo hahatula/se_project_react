@@ -57,7 +57,7 @@ export const getUserInfo = (token) => {
   });
 };
 
-export const editUserInfo = ({ name, avatar, city }, token) => {
+export const editUserInfo = ({ name, avatar, city, coordinates }, token) => {
   return request(`${BASE_URL}/users/me`, {
     method: 'PATCH',
     headers: {
@@ -69,6 +69,7 @@ export const editUserInfo = ({ name, avatar, city }, token) => {
       name: name,
       avatar: avatar,
       city: city,
+      coordinates: coordinates,
     }),
   });
 };

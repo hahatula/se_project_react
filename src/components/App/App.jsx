@@ -7,11 +7,9 @@ import Profile from '../Profile/Profile';
 import Footer from '../Footer/Footer';
 import ItemModal from '../ItemModal/ItemModal';
 import { getWeather, filterWeatherData } from '../../utils/weatherApi';
-import { getCoordinates } from '../../utils/geocodingApi';
 import {
   defaultCoordinates,
   weatherAPIKey,
-  openCageGeocodingAPIKey,
 } from '../../utils/constants';
 import AppContext from '../../contexts/AppContext';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
@@ -46,7 +44,6 @@ function App() {
   });
   const [modalIsActive, setModalIsActive] = useState(null);
   const [selectedItem, setSelectedItem] = useState({});
-  const [coordinates, setCoordinates] = useState(defaultCoordinates);
 
   // GETTING INFO ON FIRST LOAD
   // dependencies arrays are empty to turn on these useEffects only once on mount
@@ -67,26 +64,15 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const city = isLoggedIn ? currentUser.city : 'Tel Aviv';
-    getCoordinates(city, openCageGeocodingAPIKey)
-      .then((data) => {
-        // TODO add opportunity to choose the correct location
-        console.log(data);
-        if (data.results[0]) {
-          setCoordinates(data.results[0].geometry);
-        }
-      })
-      .catch(console.error);
-  }, [currentUser]);
-
-  useEffect(() => {
+    console.log(currentUser.coordinates);
+    const coordinates = currentUser.coordinates ? currentUser.coordinates : defaultCoordinates;
     getWeather(coordinates, weatherAPIKey)
       .then((data) => {
         const filteredData = filterWeatherData(data);
         setWeatherData(filteredData);
       })
       .catch(console.error);
-  }, [coordinates]);
+  }, [currentUser.coordinates]);
 
   useEffect(() => {
     getClothes()
@@ -112,9 +98,9 @@ function App() {
       .finally(() => setIsLoading(false));
   };
 
-  const handleRegistration = ({ name, avatarUrl, email, password, city }) => {
+  const handleRegistration = ({ name, avatarUrl, email, password, city, coordinates }) => {
     const makeRequest = () => {
-      return auth.register(name, avatarUrl, email, password, city).then(() => {
+      return auth.register(name, avatarUrl, email, password, city, coordinates).then(() => {
         handleLogin({ email, password });
       });
     };
@@ -148,6 +134,7 @@ function App() {
           name: formData.name,
           avatar: formData.avatarUrl,
           city: formData.city,
+          coordinates: formData.coordinates,
         },
         user
       ).then((data) => {
@@ -157,6 +144,7 @@ function App() {
           name: user.name,
           avatar: user.avatar,
           city: user.city,
+          coordinates: user.coordinates,
         }));
       });
     };
@@ -256,10 +244,10 @@ function App() {
           <CurrentUserContext.Provider value={{ currentUser, setCurrentUser }}>
             <div className="app__container">
               <Header
-                weatherData={weatherData}
                 handleAddButton={handleAddButton}
                 handleLogInButton={handleLogInButton}
                 handleSignUpButton={handleSignUpButton}
+                handleEditProfileButton={handleEditProfileButton}
               />
               <Routes>
                 <Route

@@ -1,0 +1,17 @@
+.city-options {
+    padding: 0;
+}
+
+.city-option-item {
+    padding: 4px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.city-option-item:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.city-option-warning {
+    color: #ff4d00;
+}
