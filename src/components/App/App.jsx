@@ -7,10 +7,7 @@ import Profile from '../Profile/Profile';
 import Footer from '../Footer/Footer';
 import ItemModal from '../ItemModal/ItemModal';
 import { getWeather, filterWeatherData } from '../../utils/weatherApi';
-import {
-  defaultCoordinates,
-  weatherAPIKey,
-} from '../../utils/constants';
+import { defaultCoordinates, weatherAPIKey } from '../../utils/constants';
 import AppContext from '../../contexts/AppContext';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 import { CurrentTemperatureUnitContext } from '../../contexts/CurrentTemperatureUnitContext';
@@ -64,8 +61,9 @@ function App() {
   }, []);
 
   useEffect(() => {
-    console.log(currentUser.coordinates);
-    const coordinates = currentUser.coordinates ? currentUser.coordinates : defaultCoordinates;
+    const coordinates = currentUser.coordinates
+      ? currentUser.coordinates
+      : defaultCoordinates;
     getWeather(coordinates, weatherAPIKey)
       .then((data) => {
         const filteredData = filterWeatherData(data);
@@ -98,11 +96,20 @@ function App() {
       .finally(() => setIsLoading(false));
   };
 
-  const handleRegistration = ({ name, avatarUrl, email, password, city, coordinates }) => {
+  const handleRegistration = ({
+    name,
+    avatarUrl,
+    email,
+    password,
+    city,
+    coordinates,
+  }) => {
     const makeRequest = () => {
-      return auth.register(name, avatarUrl, email, password, city, coordinates).then(() => {
-        handleLogin({ email, password });
-      });
+      return auth
+        .register(name, avatarUrl, email, password, city, coordinates)
+        .then(() => {
+          handleLogin({ email, password });
+        });
     };
     handleSubmit(makeRequest);
   };

@@ -15,40 +15,26 @@ function EditProfileModal({ onCloseModal, onEdit, isLoading }) {
   const [multyChoice, setMultyChoice] = useState(false);
   const [isSpecified, setIsSpecified] = useState(false);
   const [options, setOptions] = useState([]);
-console.log(isSpecified);
-  
-const handleCoordinatesChange = (city) => {
-    console.log(city);
+
+  const handleCoordinatesChange = (city) => {
     return getCoordinates(city, openCageGeocodingAPIKey)
       .then((data) => {
-        console.log(data);
         if (data.results.length === 1) {
-          console.log(data.results);
-          console.log(data.results[0].geometry);
-          console.log('single option');
           return data.results[0].geometry;
         } else if (data.results.length > 1) {
-          
-          console.log('multy');
-          console.log(data);
-          
           const uniqueOptions = [
             ...new Set(data.results.map((option) => option.formatted)),
           ];
-          console.log(uniqueOptions);
-
           setOptions(uniqueOptions);
-          console.log(options);
           if (uniqueOptions.length > 1) {
             setMultyChoice(true);
             return null;
-          } else {  
+          } else {
             setMultyChoice(false);
             setIsSpecified(true);
             return data.results[0].geometry;
           }
         } else {
-          console.log('No options found');
           setOptions([
             'No options found, please check the spelling of your city name.',
           ]);
@@ -94,7 +80,6 @@ const handleCoordinatesChange = (city) => {
     e.preventDefault();
     //update coordinates
     if (isSpecified) {
-      console.log(data);
       onEdit(data);
     } else {
       handleCoordinatesChange(data.city).then((coordinates) => {
