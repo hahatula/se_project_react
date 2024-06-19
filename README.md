@@ -19,7 +19,7 @@ https://wtwr.xyz
 * NGINX to manage traffic
 * Certbot to provide secure communication
 
-![Cover image](src/assets/wtwr.jpg)
+![Cover image](src/assets/wtwr-front.jpg)
 
 ## The backend repo:
 https://github.com/hahatula/se_project_express
