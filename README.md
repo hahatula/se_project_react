@@ -1,4 +1,4 @@
-# WTWR (What to Wear?): Front End
+# WTWR (What to Wear?) — Frontend
 
 ## Overview
 A web application to assist you in selecting outfits that are appropriate for the weather.
@@ -7,12 +7,17 @@ Keep up to date with the weather in your region, choose the right clothes from y
 https://wtwr.xyz
 
 ## Technologies
-React,
-JSX,
-CSS,
-Weather API,
-OpenCage Geocoding API,
-Mock API
+* React, React Router, JSX, CSS
+
+## APIs
+* Weather API,
+* OpenCage Geocoding API,
+* Mock API
+
+## Deployment
+* AWS (Amazon Web Services)
+* NGINX to manage traffic
+* Certbot to provide secure communication
 
 ![Cover image](src/assets/wtwr.jpg)
 
