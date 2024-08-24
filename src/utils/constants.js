@@ -7,5 +7,6 @@ export const defaultCoordinates = {
 
 export const BASE_URL =
   process.env.NODE_ENV === 'production'
-    ? 'https://api.wtwr.xyz'
+    //? 'https://api.wtwr.xyz'
+    ? 'https://wtwr-back-hpduhg1kg-olgas-projects-0a039441.vercel.app'
     : 'http://localhost:3001';
